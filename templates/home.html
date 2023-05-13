@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{.Home_Title}}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../sources/css/home_style.css">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row" id="head">
+      <div class="col" id="logo">
+        <a href="">
+          <img src="{{.Home_Author_img}}" alt="">
+          <span>{{.Home_Author}}</span>
+        </a>
+      </div>
+
+      <div class="col" id="navigation">
+        <a href="../pages/archive.html">
+          <span>归档</span>
+        </a>
+        <a href="tags.html">
+          <span>标签</span>
+        </a>
+        <a href="">
+          <span>订阅</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="introduction">
+    <div class="row">
+      <div class="col">
+        <img src="{{.Home_Author_img}}" alt="">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span>{{.Home_Author}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span>{{.Home_Self_introduction}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="input-group">
+          <span class="input-group-text">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+              </path>
+            </svg>
+          </span>
+          <input type="text" class="form-control" placeholder="搜索..." aria-label="搜索..." id="search">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="body">
+    <span><a href="../pages/index.html">{{.Title}}</a></span>
+    <img src="{{.Img}}" alt="">
+    <p class="body_articles">{{.Desc}}</p>
+    <span class="body_articles_time">{{.Time}}</span>
+    {{ range $index, $tag := .Tags }}
+    <span class="body_articles_tag"><a href="/tags/{{ $tag }}">{{ $tag }}</a></span>
+    {{ end }}
+  </div>
+</body>
+
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>

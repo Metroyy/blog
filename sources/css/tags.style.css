@@ -1,0 +1,28 @@
+.tag-item{
+    float: left;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.tag-list .tag-item .tag-name:hover{
+    background-color: #293846;
+    color: #fcfcfc;
+    border: 1px solid #293846;
+    border-radius: 3px;
+}
+
+.tag-list .tag-item .tag-name:hover .tag-count{
+    color: #fcfcfc;
+}
+
+.tag-name,.tag-count{
+    color: #009a61;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.tag-name{
+    padding: 5px 7px;
+}

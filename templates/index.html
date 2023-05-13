@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{.Home_Title}}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
+    <link rel="stylesheet" href="../sources/css/home_style.css">
+    <link rel="stylesheet" href="../sources/css/index_style.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" id="head">
+            <div class="col" id="logo">
+                <a href="">
+                    <img src="{{.Home_Author_img}}" alt="">
+                    <span>陈可微</span>
+                </a>
+            </div>
+
+            <div class="col" id="navigation">
+                <a href="">
+                    <span>归档</span>
+                </a>
+                <a href="tags.html">
+                    <span>标签</span>
+                </a>
+                <a href="">
+                    <span>订阅</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>{{.Title}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="{{.Home_Author_img}}" alt="">
+                <span>{{.Home_Author}}</span>
+                {{ range $index, $tag := .Tags }}
+                <span class="body_articles_tag"><a href="/tags/{{ $tag }}">{{ $tag }}</a></span>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <img src="{{.Img}}" alt="">
+    </div>
+    <div class="container">
+        {{.Text}}
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script>
+    window.onload = function () {
+        Prism.highlightAll();
+    }
+</script>
