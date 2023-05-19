@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>{{.Home_Title}}</title>
+    <title>{{ .Title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
-    <link rel="stylesheet" href="../sources/css/home_style.css">
-    <link rel="stylesheet" href="../sources/css/index_style.css">
+    <link rel="stylesheet" href="../../sources/css/home_style.css">
+    <link rel="stylesheet" href="../../sources/css/index_style.css">
 </head>
 
 <body>
@@ -15,7 +14,7 @@
             <div class="col" id="logo">
                 <a href="">
                     <img src="{{.Home_Author_img}}" alt="">
-                    <span>陈可微</span>
+                    <span>{{.Home_Author}}</span>
                 </a>
             </div>
 
@@ -42,9 +41,7 @@
             <div class="col">
                 <img src="{{.Home_Author_img}}" alt="">
                 <span>{{.Home_Author}}</span>
-                {{ range $index, $tag := .Tags }}
-                <span class="body_articles_tag"><a href="/tags/{{ $tag }}">{{ $tag }}</a></span>
-                {{ end }}
+                <span class="body_articles_tag"><a href="/tags/{{.Tags}}">{{.Tags}}</a></span>
             </div>
         </div>
     </div>

@@ -2,11 +2,13 @@
 <html>
 
 <head>
-    <title>{{.title}}</title>
+    {{if gt (len .ConfigDict) 0}}
+    {{ $firstConfig := index .ConfigDict 0 }}
+    <title>{{ $firstConfig.Home_Title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../sources/css/home_style.css">
-    <link rel="stylesheet" href="../sources/css/archive.style.css">
-    <link rel="stylesheet" href="../sources/css/tags.style.css">
+    <link rel="stylesheet" href="../../sources/css/home_style.css">
+    <link rel="stylesheet" href="../../sources/css/archive.style.css">
+    <link rel="stylesheet" href="../../sources/css/tags.style.css">
 </head>
 
 <body>
@@ -14,8 +16,8 @@
         <div class="row" id="head">
             <div class="col" id="logo">
                 <a href="">
-                    <img src="../sources/img/logo.png" alt="">
-                    <span>陈可微</span>
+                    <img src="{{$firstConfig.Home_Author_img}}" alt="">
+                    <span>{{$firstConfig.Home_Author}}</span>
                 </a>
             </div>
 
@@ -35,12 +37,13 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <span>陈可微</span>
+                <span>{{$firstConfig.Home_Author}}</span>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <span>图拉丁吧高级会员</span>
+                <span>{{$firstConfig.Home_Self_introduction}}</span>
+                {{end}}
             </div>
         </div>
     </div>

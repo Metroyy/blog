@@ -24,36 +24,47 @@ type Config struct {
 	Text                   template.HTML `yaml:"text"`
 	Time                   string        `yaml:"time"`
 	Tags                   []string      `yaml:"tags"`
+	MDPath                 string
 }
 
 func main() {
 	// 读取配置文件
+	var configs []Config
 	config := ReadConfig("config.yaml")
 
-	files, err := filepath.Glob("sources/articles/*.md")
+	files, err := filepath.Glob("sources/post/*.md")
 	if err != nil {
-		log.Fatalf("读取 Markdown 文件失败: %v", err)
+		log.Fatalf("读取 Markdown 文件失败了: %v", err)
 	}
+	//计算md文件数量
+	mdCount := CountMarkdownFiles()
 
 	// ExtractMarkdown 从 Markdown 文件中提取内容并更新 Config 配置
-	for _, path := range files {
-		config = ExtractMarkdown(path, config)
+	for _, mdpath := range files {
+		configs = append(configs, ExtractMarkdown(mdpath, config, mdCount))
 	}
-
+	// 打印所有的 config 值
+	// for i, cfg := range configs {
+	// 	fmt.Printf("config[%d]的值：%+v\n", i, cfg)
+	// }
 	//读取模板html文件
-	tmpls := template.Must(template.ParseGlob("templates/*.html"))
+	tmpls := template.Must(template.ParseGlob("sources/templates/*.html"))
+	// fmt.Println(template.ParseGlob("sources/templates/*.html"))
 
 	//为模板传入的数据赋值
 	data := struct {
-		Config
-		MdCount int
+		ConfigDict []Config
+		MdCount    int
 	}{
-		Config: config,
+		ConfigDict: configs,
 		// 统计 sources/articles 文件夹下的 Markdown 文件数量
-		MdCount: CountMarkdownFiles(),
+		MdCount: mdCount,
+	}
+	for i := 0; i < mdCount; i++ {
+		files[i] = ExtMakedownName(files[i])
 	}
 	// 生成 HTML 文件
-	CreateHTML(tmpls, data)
+	CreateHTML(tmpls, data, files)
 	fmt.Println("HTML模板中的占位符替换成功!")
 }
 
@@ -76,9 +87,9 @@ func ReadConfig(path string) Config {
 }
 
 // ExtractMarkdown 从 Markdown 文件中提取内容并更新 Config 配置
-func ExtractMarkdown(path string, config Config) Config {
+func ExtractMarkdown(mdpath string, config Config, mdCount int) Config {
 	// 读取 Markdown 文件
-	mdFile, err := os.ReadFile(path)
+	mdFile, err := os.ReadFile(mdpath)
 	if err != nil {
 		log.Fatalf("读取 Markdown 文件失败: %v", err)
 	}
@@ -92,7 +103,14 @@ func ExtractMarkdown(path string, config Config) Config {
 		log.Fatalf("解析 Markdown 文件中的关键词失败: %v", err)
 	}
 
-	configs := [][]string{
+	//处理路径，提取md文件名
+	files := ExtMakedownName(mdpath)
+	config.MDPath = files
+
+	configs := []struct {
+		Field string
+		Value string
+	}{
 		{"title", config.Title},
 		{"img", config.Img},
 		{"desc", config.Desc},
@@ -100,17 +118,17 @@ func ExtractMarkdown(path string, config Config) Config {
 		{"tags", strings.Join(config.Tags, ",")},
 	}
 
-	for _, c := range configs {
-		if v, ok := mdConfig[c[0]]; ok {
-			c[1] = v
+	for i := range configs {
+		if v, ok := mdConfig[configs[i].Field]; ok {
+			configs[i].Value = v
 		}
 	}
 
-	config.Title = configs[0][1]
-	config.Img = configs[1][1]
-	config.Desc = configs[2][1]
-	config.Time = configs[3][1]
-	config.Tags = strings.Split(configs[4][1], ",")
+	config.Title = configs[0].Value
+	config.Img = configs[1].Value
+	config.Desc = configs[2].Value
+	config.Time = configs[3].Value
+	config.Tags = strings.Split(configs[4].Value, ",")
 
 	// 获取 Markdown 文件中除头部文件外的内容
 	mdContent := string(mdFile)
@@ -138,7 +156,7 @@ func ExtractMarkdown(path string, config Config) Config {
 // 统计 sources/articles 文件夹下的 Markdown 文件数量
 func CountMarkdownFiles() int {
 	mdCount := 0
-	err := filepath.Walk("sources/articles", func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk("sources/post", func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -154,31 +172,46 @@ func CountMarkdownFiles() int {
 }
 
 // 生成 HTML 文件
-func CreateHTML(tmpls *template.Template, data interface{}) {
+func CreateHTML(tmpls *template.Template, data struct {
+	ConfigDict []Config
+	MdCount    int
+}, files []string) {
+	//创建md对应的HTML文件
+	for i := 0; i < data.MdCount; i++ {
+		out_md, err := os.Create("sources/articles/" + files[i] + ".html")
+		if err != nil {
+			log.Fatalf("创建"+files[i]+"输出文件失败: %v", err)
+		}
+		errs := tmpls.ExecuteTemplate(out_md, "index.html", data.ConfigDict[i])
+		if errs != nil {
+			log.Fatalf("替换"+files[i]+"模板中的占位符失败: %v", errs)
+		}
+	}
+
 	// 创建输出文件并将模板引擎替换后的结果
-	out_home, err := os.Create("pages/home.html")
+	out_home, err := os.Create("sources/articles/home.html")
 	if err != nil {
 		log.Fatalf("创建home输出文件失败: %v", err)
 	}
-	out_index, err := os.Create("pages/index.html")
-	if err != nil {
-		log.Fatalf("创建index输出文件失败: %v", err)
-	}
-	out_archive, err := os.Create("pages/archive.html")
+
+	out_archive, err := os.Create("sources/articles/archive.html")
 	if err != nil {
 		log.Fatalf("创建index输出文件失败: %v", err)
 	}
 
-	err = tmpls.ExecuteTemplate(out_home, "home.html", data)
-	if err != nil {
-		log.Fatalf("替换home模板中的占位符失败: %v", err)
+	errs := tmpls.ExecuteTemplate(out_home, "home.html", data)
+	if errs != nil {
+		log.Fatalf("替换home模板中的占位符失败: %v", errs)
 	}
-	err = tmpls.ExecuteTemplate(out_index, "index.html", data)
-	if err != nil {
-		log.Fatalf("替换index模板中的占位符失败: %v", err)
-	}
+
 	err = tmpls.ExecuteTemplate(out_archive, "archive.html", data)
 	if err != nil {
 		log.Fatalf("替换archive模板中的占位符失败: %v", err)
 	}
+}
+
+// 处理路径，提取md文件名
+func ExtMakedownName(files string) string {
+	files = strings.TrimPrefix(strings.TrimSuffix(files, ".md"), "sources\\post\\")
+	return files
 }

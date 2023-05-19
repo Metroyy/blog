@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VGPU配置</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
+    <link rel="stylesheet" href="../../sources/css/home_style.css">
+    <link rel="stylesheet" href="../../sources/css/index_style.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" id="head">
+            <div class="col" id="logo">
+                <a href="">
+                    <img src="../img/logo.png" alt="">
+                    <span>陈可微</span>
+                </a>
+            </div>
+
+            <div class="col" id="navigation">
+                <a href="">
+                    <span>归档</span>
+                </a>
+                <a href="tags.html">
+                    <span>标签</span>
+                </a>
+                <a href="">
+                    <span>订阅</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>VGPU配置</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="../img/logo.png" alt="">
+                <span>陈可微</span>
+                <span class="body_articles_tag"><a href="/tags/[VGPU]">[VGPU]</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <img src="https://cdn.gamma.app/cdn-cgi/image/quality=80,fit=scale-down,onerror=redirect,width=500/a6uyzivr086smdy/bcde7aa37d204865b27a758dcb271fa6/original/u-4010697962-4143975424-fm-253-app-120-f-JPEG-fmt-auto-q-75.jpg" alt="">
+    </div>
+    <div class="container">
+        <p>测试纯文字：
+测试</p>
+
+<p>测试标题###：</p>
+
+<h3>测试</h3>
+
+<p>测试标题##：</p>
+
+<h2>测试</h2>
+
+<p>测试标题#：</p>
+
+<h1>测试</h1>
+
+<p>测试代码块：</p>
+
+<pre><code class="language-yaml">yum install
+</code></pre>
+
+<p>测试本地图片：
+<img src="../img/title.png" alt="img" /></p>
+
+<p>测试本地图片：
+<a href="https://tse2-mm.cn.bing.net/th/id/OIP-C.sM4IE-0sfN9ICstIElrXNQHaF4?pid=ImgDet&amp;rs=1">img</a></p>
+
+<p>测试引用：
+&gt; 测试</p>
+
+<p>测试加粗**：
+<strong>测试</strong></p>
+
+<p>测试无序列表-：
+- 测试1
+- 测试2</p>
+
+<p>测试有序列表1.：
+1. 测试1
+2. 测试2</p>
+
+<p>测试斜体*：
+<em>测试</em></p>
+
+<p>测试斜体_：
+_测试</p>
+
+<h3>esxi安装vgpu驱动</h3>
+
+<p><strong>设置显卡禁止直通</strong>
+<img src="../img/vgpu/2.png" alt="img" /></p>
+
+<p><strong>上传驱动vib文件</strong>
+<img src="../img/vgpu/3.png" alt="img" /></p>
+
+<p><strong>进入维护模式</strong>
+<img src="../img/vgpu/4.png" alt="img" /></p>
+
+<p><strong>设置读写权限</strong>
+<img src="../img/vgpu/5.png" alt="img" /></p>
+
+<p><strong>安装驱动</strong></p>
+
+<pre><code class="language-yaml">esxcli software vib install -v (vib文件路径) ---安装驱动
+esxcli software vib update -v (vib文件路径) ---更新驱动
+</code></pre>
+
+<p><img src="../img/vgpu/6.png" alt="img" /></p>
+
+<p><strong>验证驱动</strong></p>
+
+<pre><code class="language-bash">nvidia-smi
+nvidia-smi -e 0 ---若ECC不为OFF
+</code></pre>
+
+<p><img src="../img/vgpu/7.png" alt="img" />
+<strong>若红框为Xorg</strong>
+<strong>设置显卡共享类型</strong>
+<img src="../img/vgpu/8.png" alt="img" /></p>
+
+<p><strong>切换直接共享</strong>
+<img src="../img/vgpu/9.png" alt="img" /></p>
+
+<p><strong>再次验证驱动，如图即可</strong></p>
+
+<pre><code class="language-bash">nvidia-smi
+lspci | grep NVIDIA
+</code></pre>
+
+<p><img src="../img/vgpu/10.png" alt="img" />
+<img src="../img/vgpu/11.png" alt="img" /></p>
+
+<h3>安装授权服务器licserve</h3>
+
+<p><strong>lic版本对照表</strong>
+<img src="../img/vgpu/1.png" alt="img" /></p>
+
+<p><strong>配置CentOS虚拟机</strong></p>
+
+<pre><code class="language-bash">8a:50:13:0c:ae:06 ---修改虚拟网卡MAC
+2018-07-19 18:40:00 ---修改系统时间并关闭ntp同步
+yum update -y ---更新系统
+yum intsall java -y ---安装java
+yum install tomcat tomcat-webapps -y ---安装tomcat 
+</code></pre>
+
+<p><strong>本机上传安装文件到虚拟机</strong></p>
+
+<pre><code class="language-bash">scp setup.bin root@IP:文件夹
+</code></pre>
+
+<p><img src="../img/vgpu/12.png" alt="img" /></p>
+
+<p><strong>验证上传</strong>
+<img src="../img/vgpu/13.png" alt="img" /></p>
+
+<p><strong>安装licserve</strong></p>
+
+<pre><code class="language-bash">./setup.bin ---运行安装文件
+/usr/share/tomcat ---提示输入tomcat路径时输入默认路径
+</code></pre>
+
+<p><img src="../img/vgpu/14.png" alt="img" /></p>
+
+<p><strong>服务设置</strong></p>
+
+<pre><code class="language-bash">systemctl stop firewalld ---停止防护墙
+systemctl disable  firewalld  ---禁用防火墙自启服务
+systemctl start tomcat.service ---启动tomcat服务
+systemctl enable tomcat.service ---设置tomcat服务自启
+systemctl status tomcat.service ---查看服务状态
+systemctl list-unit-files ---查看所有自启服务  we前后 q退出
+</code></pre>
+
+<p><strong>验证授权服务器</strong></p>
+
+<pre><code class="language-bash">http://ip:8080/licserver ---浏览器进入管理页面
+</code></pre>
+
+<p><img src="../img/vgpu/15.png" alt="img" /></p>
+
+<p><strong>导入vib授权文件</strong>
+<img src="../img/vgpu/16.png" alt="img" /></p>
+
+<p><strong>验证授权</strong>
+<img src="../img/vgpu/17.png" alt="img" /></p>
+
+<p><strong>授权服务器打开NTP自动同步</strong></p>
+
+<pre><code class="language-bash">yum -y install chrony ---安装软件
+systemctl enable chronyd  ---开机自启
+systemctl start chronyd ---启动
+timedatectl status ---查看时间同步状态
+timedatectl set-ntp true ---开启网络时间同步
+date ---查看系统时间是否正确
+</code></pre>
+
+<p><strong>下载对应的guid驱动，并安装</strong>
+<img src="../img/vgpu/18.png" alt="img" /></p>
+
+<p><strong>进入驱动面板，输入授权服务器ip及7070授权端口</strong>
+<img src="../img/vgpu/19.png" alt="img" /></p>
+
+<p><strong>管理面板验证授权成功</strong>
+<img src="../img/vgpu/20.png" alt="img" />
+<img src="../img/vgpu/21.png" alt="img" /></p>
+
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script>
+    window.onload = function () {
+        Prism.highlightAll();
+    }
+</script>

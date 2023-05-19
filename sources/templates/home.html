@@ -2,9 +2,11 @@
 <html>
 
 <head>
-  <title>{{.Home_Title}}</title>
+  {{if gt (len .ConfigDict) 0}}
+  {{ $firstConfig := index .ConfigDict 0 }}
+  <title>{{ $firstConfig.Home_Title }}</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../sources/css/home_style.css">
+  <link rel="stylesheet" href="../../sources/css/home_style.css">
 </head>
 
 <body>
@@ -12,13 +14,13 @@
     <div class="row" id="head">
       <div class="col" id="logo">
         <a href="">
-          <img src="{{.Home_Author_img}}" alt="">
-          <span>{{.Home_Author}}</span>
+          <img src="{{$firstConfig.Home_Author_img}}" alt="">
+          <span>{{$firstConfig.Home_Author}}</span>
         </a>
       </div>
 
       <div class="col" id="navigation">
-        <a href="../pages/archive.html">
+        <a href="../articles/archive.html">
           <span>归档</span>
         </a>
         <a href="tags.html">
@@ -33,17 +35,18 @@
   <div class="container" id="introduction">
     <div class="row">
       <div class="col">
-        <img src="{{.Home_Author_img}}" alt="">
+        <img src="{{$firstConfig.Home_Author_img}}" alt="">
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <span>{{.Home_Author}}</span>
+        <span>{{$firstConfig.Home_Author}}</span>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <span>{{.Home_Self_introduction}}</span>
+        <span>{{$firstConfig.Home_Self_introduction}}</span>
+        {{end}}
       </div>
     </div>
     <div class="row">
@@ -62,8 +65,9 @@
       </div>
     </div>
   </div>
+  {{range .ConfigDict}}
   <div class="container" id="body">
-    <span><a href="../pages/index.html">{{.Title}}</a></span>
+    <span><a href="{{.MDPath}}.html">{{.Title}}</a></span>
     <img src="{{.Img}}" alt="">
     <p class="body_articles">{{.Desc}}</p>
     <span class="body_articles_time">{{.Time}}</span>
@@ -71,6 +75,7 @@
     <span class="body_articles_tag"><a href="/tags/{{ $tag }}">{{ $tag }}</a></span>
     {{ end }}
   </div>
+  {{end}}
 </body>
 
 </html>

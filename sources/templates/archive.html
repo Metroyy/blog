@@ -2,10 +2,12 @@
 <html>
 
 <head>
-    <title>一个随意的博客</title>
+    {{if gt (len .ConfigDict) 0}}
+    {{$arc := index .ConfigDict 0}}
+    <title>{{$arc.Home_Title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../sources/css/home_style.css">
-    <link rel="stylesheet" href="../sources/css/archive.style.css">
+    <link rel="stylesheet" href="../../sources/css/home_style.css">
+    <link rel="stylesheet" href="../../sources/css/archive.style.css">
 </head>
 
 <body>
@@ -13,8 +15,8 @@
         <div class="row" id="head">
             <div class="col" id="logo">
                 <a href="">
-                    <img src="../sources/img/logo.png" alt="">
-                    <span>陈可微</span>
+                    <img src="{{$arc.Home_Author_img}}" alt="">
+                    <span>{{$arc.Home_Author}}</span>
                 </a>
             </div>
 
@@ -34,18 +36,19 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <span>陈可微</span>
+                <span>{{$arc.Home_Author}}</span>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <span>图拉丁吧高级会员</span>
+                <span>{{$arc.Home_Self_introduction}}</span>
+                {{end}}
             </div>
         </div>
     </div>
     <div class="container">
         <span>归档 -</span>
-        <span>2篇文章</span>
+        <span>{{.MdCount}}篇文章</span>
     </div>
     <div class="container">
         <ul class="archive-list">
