@@ -52,8 +52,9 @@
     </div>
     <div class="container">
         <ul class="archive-list">
+            {{range .Archive_Year}}
             <li class="archive-item">
-                <div class="archive-year">2022</div>
+                <div class="archive-year">{{.}}</div>
                 <ul class="article-list">
 
                     <li class="article-item">
@@ -93,22 +94,7 @@
 
                 </ul>
             </li>
-            <li class="archive-item">
-                <div class="archive-year">2021</div>
-                <ul class="article-list">
-
-                    <li class="article-item">
-                        <span class="date">2021-12-31</span>
-                        <a href="life/2021/12/31/summary/index.html">人生回忆录之2021篇</a>
-                    </li>
-
-                    <li class="article-item">
-                        <span class="date">2021-02-09</span>
-                        <a href="memories/2021/02/09/to-dad/index.html">自立五年</a>
-                    </li>
-
-                </ul>
-            </li>
+            {{end}}
         </ul>
     </div>
 </body>

@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/russross/blackfriday"
 	"gopkg.in/yaml.v2"
@@ -22,7 +23,7 @@ type Config struct {
 	Img                    string        `yaml:"img"`
 	Desc                   string        `yaml:"desc"`
 	Text                   template.HTML `yaml:"text"`
-	Time                   string        `yaml:"time"`
+	Time                   time.Time     `yaml:"time"`
 	Tags                   []string      `yaml:"tags"`
 	MDPath                 string
 }
@@ -43,22 +44,20 @@ func main() {
 	for _, mdpath := range files {
 		configs = append(configs, ExtractMarkdown(mdpath, config, mdCount))
 	}
-	// 打印所有的 config 值
-	// for i, cfg := range configs {
-	// 	fmt.Printf("config[%d]的值：%+v\n", i, cfg)
-	// }
+
 	//读取模板html文件
 	tmpls := template.Must(template.ParseGlob("sources/templates/*.html"))
-	// fmt.Println(template.ParseGlob("sources/templates/*.html"))
 
 	//为模板传入的数据赋值
 	data := struct {
-		ConfigDict []Config
-		MdCount    int
+		ConfigDict   []Config
+		MdCount      int
+		Archive_Year []int
 	}{
 		ConfigDict: configs,
 		// 统计 sources/articles 文件夹下的 Markdown 文件数量
-		MdCount: mdCount,
+		MdCount:      mdCount,
+		Archive_Year: ExtArchive_Time(configs),
 	}
 	for i := 0; i < mdCount; i++ {
 		files[i] = ExtMakedownName(files[i])
@@ -114,21 +113,27 @@ func ExtractMarkdown(mdpath string, config Config, mdCount int) Config {
 		{"title", config.Title},
 		{"img", config.Img},
 		{"desc", config.Desc},
-		{"time", config.Time},
+		{"time", config.Time.Format("2006-01-02")},
 		{"tags", strings.Join(config.Tags, ",")},
 	}
 
 	for i := range configs {
 		if v, ok := mdConfig[configs[i].Field]; ok {
-			configs[i].Value = v
+			if configs[i].Field == "time" {
+				timeStr := v
+				config.Time, _ = time.Parse("2006-01-02", timeStr)
+			} else if configs[i].Field == "tags" {
+				config.Tags = strings.Split(strings.TrimSpace(v), ",")
+			} else {
+				configs[i].Value = v
+			}
 		}
 	}
 
 	config.Title = configs[0].Value
 	config.Img = configs[1].Value
 	config.Desc = configs[2].Value
-	config.Time = configs[3].Value
-	config.Tags = strings.Split(configs[4].Value, ",")
+	config.Tags = strings.Split(strings.TrimSpace(configs[4].Value), ", ")
 
 	// 获取 Markdown 文件中除头部文件外的内容
 	mdContent := string(mdFile)
@@ -155,26 +160,18 @@ func ExtractMarkdown(mdpath string, config Config, mdCount int) Config {
 
 // 统计 sources/articles 文件夹下的 Markdown 文件数量
 func CountMarkdownFiles() int {
-	mdCount := 0
-	err := filepath.Walk("sources/post", func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if !info.IsDir() && strings.HasSuffix(path, ".md") {
-			mdCount++
-		}
-		return nil
-	})
+	files, err := filepath.Glob("sources/post/*.md")
 	if err != nil {
-		log.Fatalf("遍历目录失败: %v", err)
+		log.Fatalf("读取 Markdown 文件失败了: %v", err)
 	}
-	return mdCount
+	return len(files)
 }
 
 // 生成 HTML 文件
 func CreateHTML(tmpls *template.Template, data struct {
-	ConfigDict []Config
-	MdCount    int
+	ConfigDict   []Config
+	MdCount      int
+	Archive_Year []int
 }, files []string) {
 	//创建md对应的HTML文件
 	for i := 0; i < data.MdCount; i++ {
@@ -214,4 +211,19 @@ func CreateHTML(tmpls *template.Template, data struct {
 func ExtMakedownName(files string) string {
 	files = strings.TrimPrefix(strings.TrimSuffix(files, ".md"), "sources\\post\\")
 	return files
+}
+
+// 处理md文档中的time字段，提取年，相同的年就不提取
+func ExtArchive_Time(configs []Config) []int {
+	years := make(map[int]bool)
+	var yearsList []int
+
+	for i := 0; i < len(configs); i++ {
+		year := configs[i].Time.Year()
+		if !years[year] {
+			years[year] = true
+			yearsList = append(yearsList, year)
+		}
+	}
+	return yearsList
 }
