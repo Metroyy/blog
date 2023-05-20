@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -37,12 +38,24 @@ func main() {
 	if err != nil {
 		log.Fatalf("读取 Markdown 文件失败了: %v", err)
 	}
+
 	//计算md文件数量
 	mdCount := CountMarkdownFiles()
 
 	// ExtractMarkdown 从 Markdown 文件中提取内容并更新 Config 配置
-	for _, mdpath := range files {
-		configs = append(configs, ExtractMarkdown(mdpath, config, mdCount))
+	for i := 0; i < len(files); i++ {
+		configs = append(configs, ExtractMarkdown(files[i], config, mdCount))
+	}
+
+	//处理年份，得到所有md年份和唯一年份
+	yearsList, uniqueYears, err := ExtArchiveTime(configs)
+	if err != nil {
+		log.Fatalf("获取md文档年份失败了: %v", err)
+	}
+
+	//拼接home页的跳转路径
+	for i := 0; i < len(configs); i++ {
+		configs[i].MDPath = strconv.Itoa(yearsList[i]) + "/" + configs[i].MDPath + ".html"
 	}
 
 	//读取模板html文件
@@ -57,13 +70,19 @@ func main() {
 		ConfigDict: configs,
 		// 统计 sources/articles 文件夹下的 Markdown 文件数量
 		MdCount:      mdCount,
-		Archive_Year: ExtArchive_Time(configs),
+		Archive_Year: uniqueYears,
 	}
+
+	//提取出md文件名，存入files数组中
 	for i := 0; i < mdCount; i++ {
 		files[i] = ExtMakedownName(files[i])
 	}
+
+	//检查年份文件夹，如果没有则创建各个年份的文件夹
+	MkdirYears(data.Archive_Year)
+
 	// 生成 HTML 文件
-	CreateHTML(tmpls, data, files)
+	CreateHTML(tmpls, data, files, yearsList)
 	fmt.Println("HTML模板中的占位符替换成功!")
 }
 
@@ -172,10 +191,11 @@ func CreateHTML(tmpls *template.Template, data struct {
 	ConfigDict   []Config
 	MdCount      int
 	Archive_Year []int
-}, files []string) {
+	Archive_MDName []string
+}, files []string, yearsList []int) {
 	//创建md对应的HTML文件
 	for i := 0; i < data.MdCount; i++ {
-		out_md, err := os.Create("sources/articles/" + files[i] + ".html")
+		out_md, err := os.Create("sources/articles/" + strconv.Itoa(yearsList[i]) + "/" + files[i] + ".html")
 		if err != nil {
 			log.Fatalf("创建"+files[i]+"输出文件失败: %v", err)
 		}
@@ -213,17 +233,64 @@ func ExtMakedownName(files string) string {
 	return files
 }
 
-// 处理md文档中的time字段，提取年，相同的年就不提取
-func ExtArchive_Time(configs []Config) []int {
-	years := make(map[int]bool)
-	var yearsList []int
+// 处理md文档中的time字段，提取年，取出所有年和唯一年
+func ExtArchiveTime(configs []Config) (yearsList []int, uniqueYears []int, err error) {
+	years := make(map[int]struct{})
+	if len(configs) == 0 {
+		return nil, nil, nil
+	}
+	yearsList = make([]int, len(configs))
+	i := 0
+	for _, config := range configs {
+		//获取年份
+		year := config.Time.Year()
+		//判断map中有没有这个年份
+		if _, ok := years[year]; !ok {
+			//没有，就存储进uniqueYears
+			years[year] = struct{}{}
+			uniqueYears = append(uniqueYears, year)
+		}
+		yearsList[i] = year
+		i++
+	}
+	return yearsList, uniqueYears, nil
+}
 
-	for i := 0; i < len(configs); i++ {
-		year := configs[i].Time.Year()
-		if !years[year] {
-			years[year] = true
-			yearsList = append(yearsList, year)
+// 检查年份文件夹，如果没有则创建各个年份的文件夹
+func MkdirYears(years []int) error {
+	const dirPerm = os.ModePerm
+	for i := 0; i < len(years); i++ {
+		dirExists, err := isDirExist(years[i])
+		if err != nil {
+			return fmt.Errorf("检查年份文件夹%d失败: %v", years[i], err)
+		}
+		if !dirExists {
+			folder := strconv.Itoa(years[i])
+			if err = os.MkdirAll("sources/articles/"+folder, dirPerm); err != nil {
+				return fmt.Errorf("创建文件夹%s失败: %v", folder, err)
+			}
 		}
 	}
-	return yearsList
+	return nil
 }
+
+// 检查年份文件夹是否重复
+func isDirExist(year int) (bool, error) {
+	//判断是否有文件
+	path := strconv.Itoa(year)
+	info, err := os.Stat(path)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return false, nil
+		}
+		return false, err
+	}
+	//判断是否是目录
+	if !info.IsDir() {
+		return false, fmt.Errorf("%s 存在但不是目录", path)
+	}
+	return true, nil
+}
+
+//提取对应年份的md文档
+ExtArchiveMd

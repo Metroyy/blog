@@ -67,13 +67,11 @@
   </div>
   {{range .ConfigDict}}
   <div class="container" id="body">
-    <span><a href="{{.MDPath}}.html">{{.Title}}</a></span>
+    <span><a href="{{.MDPath}}">{{.Title}}</a></span>
     <img src="{{.Img}}" alt="">
     <p class="body_articles">{{.Desc}}</p>
     <span class="body_articles_time">{{.Time}}</span>
-    {{ range $index, $tag := .Tags }}
-    <span class="body_articles_tag"><a href="/tags/{{ $tag }}">{{ $tag }}</a></span>
-    {{ end }}
+    <span class="body_articles_tag"><a href="">{{ .Tags }}</a></span>
   </div>
   {{end}}
 </body>
