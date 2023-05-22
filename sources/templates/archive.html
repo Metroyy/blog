@@ -52,15 +52,13 @@
     </div>
     <div class="container">
         <ul class="archive-list">
-            {{range .Archive_Year}}
+            {{range .Archive_MDInfo}}
             <li class="archive-item">
                 <div class="archive-year">{{.}}</div>
                 <ul class="article-list">
                     <li class="article-item">
                         <span class="date">2022-12-28</span>
-                        {{range .Archive_MDName}}
                         <a href="">{{.}}</a>
-                        {{end}}
                     </li>
                 </ul>
             </li>

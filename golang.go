@@ -58,19 +58,23 @@ func main() {
 		configs[i].MDPath = strconv.Itoa(yearsList[i]) + "/" + configs[i].MDPath + ".html"
 	}
 
+	//处理归档页的信息
+	arcinfo := ExtArcInfo(uniqueYears)
 	//读取模板html文件
 	tmpls := template.Must(template.ParseGlob("sources/templates/*.html"))
 
 	//为模板传入的数据赋值
 	data := struct {
-		ConfigDict   []Config
-		MdCount      int
-		Archive_Year []int
+		ConfigDict     []Config
+		MdCount        int
+		Archive_Year   []int
+		Archive_MDInfo [][]string
 	}{
 		ConfigDict: configs,
 		// 统计 sources/articles 文件夹下的 Markdown 文件数量
-		MdCount:      mdCount,
-		Archive_Year: uniqueYears,
+		MdCount:        mdCount,
+		Archive_Year:   uniqueYears,
+		Archive_MDInfo: arcinfo,
 	}
 
 	//提取出md文件名，存入files数组中
@@ -188,10 +192,10 @@ func CountMarkdownFiles() int {
 
 // 生成 HTML 文件
 func CreateHTML(tmpls *template.Template, data struct {
-	ConfigDict   []Config
-	MdCount      int
-	Archive_Year []int
-	Archive_MDName []string
+	ConfigDict     []Config
+	MdCount        int
+	Archive_Year   []int
+	Archive_MDInfo [][]string
 }, files []string, yearsList []int) {
 	//创建md对应的HTML文件
 	for i := 0; i < data.MdCount; i++ {
@@ -292,5 +296,26 @@ func isDirExist(year int) (bool, error) {
 	return true, nil
 }
 
-//提取对应年份的md文档
-ExtArchiveMd
+// 处理归档页的信息
+func ExtArcInfo(uniqueYears []int) [][]string {
+	arcinfo := make([][]string, len(uniqueYears))
+
+	files, err := filepath.Glob("sources/articles/*/*.html")
+	if err != nil {
+		log.Fatalf("读取 Markdown 文件失败了: %v", err)
+	}
+	filename := make([]string, len(files))
+	for i := 0; i < len(files); i++ {
+		filename[i] = strings.TrimSuffix(filepath.Base(files[i]), ".html")
+	}
+
+	for i := 0; i < len(uniqueYears); i++ {
+		arcinfo[i] = []string{strconv.Itoa(uniqueYears[i])}
+		for j := 0; j < len(filename); j++ {
+			if strings.Contains(files[j], strconv.Itoa(uniqueYears[i])) {
+				arcinfo[i] = append(arcinfo[i], filename[j])
+			}
+		}
+	}
+	return arcinfo
+}
