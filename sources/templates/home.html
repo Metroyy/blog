@@ -71,7 +71,9 @@
     <img src="{{.Img}}" alt="">
     <p class="body_articles">{{.Desc}}</p>
     <span class="body_articles_time">{{.Time}}</span>
-    <span class="body_articles_tag"><a href="">{{ .Tags }}</a></span>
+    {{ range $tag := .Tags }}
+    <span class="body_articles_tag"><a href="">{{ $tag }}</a></span>
+    {{end}}
   </div>
   {{end}}
 </body>

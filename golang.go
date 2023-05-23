@@ -8,7 +8,6 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
-	"time"
 
 	"github.com/russross/blackfriday"
 	"gopkg.in/yaml.v2"
@@ -24,7 +23,7 @@ type Config struct {
 	Img                    string        `yaml:"img"`
 	Desc                   string        `yaml:"desc"`
 	Text                   template.HTML `yaml:"text"`
-	Time                   time.Time     `yaml:"time"`
+	Time                   string        `yaml:"time"`
 	Tags                   []string      `yaml:"tags"`
 	MDPath                 string
 }
@@ -32,6 +31,7 @@ type Config struct {
 func main() {
 	// 读取配置文件
 	var configs []Config
+	// var archive_mdinfo []Archive_MDInfo
 	config := ReadConfig("config.yaml")
 
 	files, err := filepath.Glob("sources/post/*.md")
@@ -58,10 +58,13 @@ func main() {
 		configs[i].MDPath = strconv.Itoa(yearsList[i]) + "/" + configs[i].MDPath + ".html"
 	}
 
-	//处理归档页的信息
-	arcinfo := ExtArcInfo(uniqueYears)
 	//读取模板html文件
 	tmpls := template.Must(template.ParseGlob("sources/templates/*.html"))
+	uniquefiles := make([]string, mdCount)
+	//提取出md文件名，存入files数组中
+	for i := 0; i < mdCount; i++ {
+		uniquefiles[i] = ExtMakedownName(files[i])
+	}
 
 	//为模板传入的数据赋值
 	data := struct {
@@ -74,19 +77,17 @@ func main() {
 		// 统计 sources/articles 文件夹下的 Markdown 文件数量
 		MdCount:        mdCount,
 		Archive_Year:   uniqueYears,
-		Archive_MDInfo: arcinfo,
-	}
-
-	//提取出md文件名，存入files数组中
-	for i := 0; i < mdCount; i++ {
-		files[i] = ExtMakedownName(files[i])
+		Archive_MDInfo: ExtArcInfo(uniqueYears),
 	}
 
 	//检查年份文件夹，如果没有则创建各个年份的文件夹
 	MkdirYears(data.Archive_Year)
 
+	//搜索
+	search(configs)
+
 	// 生成 HTML 文件
-	CreateHTML(tmpls, data, files, yearsList)
+	CreateHTML(tmpls, data, uniquefiles, yearsList)
 	fmt.Println("HTML模板中的占位符替换成功!")
 }
 
@@ -104,7 +105,6 @@ func ReadConfig(path string) Config {
 	if err != nil {
 		log.Fatalf("解析配置文件失败: %v", err)
 	}
-
 	return config
 }
 
@@ -136,15 +136,14 @@ func ExtractMarkdown(mdpath string, config Config, mdCount int) Config {
 		{"title", config.Title},
 		{"img", config.Img},
 		{"desc", config.Desc},
-		{"time", config.Time.Format("2006-01-02")},
+		{"time", config.Time},
 		{"tags", strings.Join(config.Tags, ",")},
 	}
 
 	for i := range configs {
 		if v, ok := mdConfig[configs[i].Field]; ok {
 			if configs[i].Field == "time" {
-				timeStr := v
-				config.Time, _ = time.Parse("2006-01-02", timeStr)
+				config.Time = v
 			} else if configs[i].Field == "tags" {
 				config.Tags = strings.Split(strings.TrimSpace(v), ",")
 			} else {
@@ -156,7 +155,6 @@ func ExtractMarkdown(mdpath string, config Config, mdCount int) Config {
 	config.Title = configs[0].Value
 	config.Img = configs[1].Value
 	config.Desc = configs[2].Value
-	config.Tags = strings.Split(strings.TrimSpace(configs[4].Value), ", ")
 
 	// 获取 Markdown 文件中除头部文件外的内容
 	mdContent := string(mdFile)
@@ -177,7 +175,6 @@ func ExtractMarkdown(mdpath string, config Config, mdCount int) Config {
 
 	// 将处理后的 HTML 正文赋值给 config
 	config.Text = template.HTML(htmlContent)
-
 	return config
 }
 
@@ -196,16 +193,16 @@ func CreateHTML(tmpls *template.Template, data struct {
 	MdCount        int
 	Archive_Year   []int
 	Archive_MDInfo [][]string
-}, files []string, yearsList []int) {
+}, uniquefiles []string, yearsList []int) {
 	//创建md对应的HTML文件
 	for i := 0; i < data.MdCount; i++ {
-		out_md, err := os.Create("sources/articles/" + strconv.Itoa(yearsList[i]) + "/" + files[i] + ".html")
+		out_md, err := os.Create("sources/articles/" + strconv.Itoa(yearsList[i]) + "/" + uniquefiles[i] + ".html")
 		if err != nil {
-			log.Fatalf("创建"+files[i]+"输出文件失败: %v", err)
+			log.Fatalf("创建"+uniquefiles[i]+"输出文件失败: %v", err)
 		}
 		errs := tmpls.ExecuteTemplate(out_md, "index.html", data.ConfigDict[i])
 		if errs != nil {
-			log.Fatalf("替换"+files[i]+"模板中的占位符失败: %v", errs)
+			log.Fatalf("替换"+uniquefiles[i]+"模板中的占位符失败: %v", errs)
 		}
 	}
 
@@ -247,7 +244,10 @@ func ExtArchiveTime(configs []Config) (yearsList []int, uniqueYears []int, err e
 	i := 0
 	for _, config := range configs {
 		//获取年份
-		year := config.Time.Year()
+		year, err := strconv.Atoi(config.Time[:4])
+		if err != nil {
+			log.Fatalf("获取年份失败: %v", err)
+		}
 		//判断map中有没有这个年份
 		if _, ok := years[year]; !ok {
 			//没有，就存储进uniqueYears
@@ -318,4 +318,9 @@ func ExtArcInfo(uniqueYears []int) [][]string {
 		}
 	}
 	return arcinfo
+}
+
+// 搜索
+func search(configs []Config) {
+
 }
