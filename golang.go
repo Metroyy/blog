@@ -83,12 +83,8 @@ func main() {
 	//检查年份文件夹，如果没有则创建各个年份的文件夹
 	MkdirYears(data.Archive_Year)
 
-	//搜索
-	search(configs)
-
 	// 生成 HTML 文件
 	CreateHTML(tmpls, data, uniquefiles, yearsList)
-	fmt.Println("HTML模板中的占位符替换成功!")
 }
 
 // 读取配置文件
@@ -120,7 +116,7 @@ func ExtractMarkdown(mdpath string, config Config, mdCount int) Config {
 	// 解析 Markdown 文件中的关键词
 	// 存储从 Markdown 文件中解析的 YAML 前置内容
 	mdConfig := make(map[string]string)
-	err = yaml.Unmarshal(mdFile, &mdConfig)
+	err = yaml.Unmarshal(mdFile, mdConfig)
 	if err != nil {
 		log.Fatalf("解析 Markdown 文件中的关键词失败: %v", err)
 	}
@@ -142,7 +138,13 @@ func ExtractMarkdown(mdpath string, config Config, mdCount int) Config {
 
 	for i := range configs {
 		if v, ok := mdConfig[configs[i].Field]; ok {
-			if configs[i].Field == "time" {
+			if configs[i].Field == "title" {
+				config.Title = v
+			} else if configs[i].Field == "img" {
+				config.Img = v
+			} else if configs[i].Field == "desc" {
+				config.Desc = v
+			} else if configs[i].Field == "time" {
 				config.Time = v
 			} else if configs[i].Field == "tags" {
 				config.Tags = strings.Split(strings.TrimSpace(v), ",")
@@ -151,10 +153,6 @@ func ExtractMarkdown(mdpath string, config Config, mdCount int) Config {
 			}
 		}
 	}
-
-	config.Title = configs[0].Value
-	config.Img = configs[1].Value
-	config.Desc = configs[2].Value
 
 	// 获取 Markdown 文件中除头部文件外的内容
 	mdContent := string(mdFile)
@@ -175,6 +173,7 @@ func ExtractMarkdown(mdpath string, config Config, mdCount int) Config {
 
 	// 将处理后的 HTML 正文赋值给 config
 	config.Text = template.HTML(htmlContent)
+
 	return config
 }
 
@@ -236,6 +235,7 @@ func ExtMakedownName(files string) string {
 
 // 处理md文档中的time字段，提取年，取出所有年和唯一年
 func ExtArchiveTime(configs []Config) (yearsList []int, uniqueYears []int, err error) {
+
 	years := make(map[int]struct{})
 	if len(configs) == 0 {
 		return nil, nil, nil
@@ -243,19 +243,23 @@ func ExtArchiveTime(configs []Config) (yearsList []int, uniqueYears []int, err e
 	yearsList = make([]int, len(configs))
 	i := 0
 	for _, config := range configs {
-		//获取年份
-		year, err := strconv.Atoi(config.Time[:4])
-		if err != nil {
-			log.Fatalf("获取年份失败: %v", err)
+		if len(config.Time) >= 4 {
+			//获取年份
+			year, err := strconv.Atoi(config.Time[:4])
+			if err != nil {
+				log.Fatalf("获取年份失败: %v", err)
+			}
+			if year > 0 {
+				//判断map中有没有这个年份
+				if _, ok := years[year]; !ok {
+					//没有，就存储进uniqueYears
+					years[year] = struct{}{}
+					uniqueYears = append(uniqueYears, year)
+				}
+				yearsList[i] = year
+				i++
+			}
 		}
-		//判断map中有没有这个年份
-		if _, ok := years[year]; !ok {
-			//没有，就存储进uniqueYears
-			years[year] = struct{}{}
-			uniqueYears = append(uniqueYears, year)
-		}
-		yearsList[i] = year
-		i++
 	}
 	return yearsList, uniqueYears, nil
 }
@@ -318,9 +322,4 @@ func ExtArcInfo(uniqueYears []int) [][]string {
 		}
 	}
 	return arcinfo
-}
-
-// 搜索
-func search(configs []Config) {
-
 }
