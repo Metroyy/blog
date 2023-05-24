@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"io"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -85,6 +87,9 @@ func main() {
 
 	// 生成 HTML 文件
 	CreateHTML(tmpls, data, uniquefiles, yearsList)
+
+	//搜索路由
+	http.HandleFunc("/Search", Search)
 }
 
 // 读取配置文件
@@ -322,4 +327,11 @@ func ExtArcInfo(uniqueYears []int) [][]string {
 		}
 	}
 	return arcinfo
+}
+
+// 搜索实现
+func Search(w http.ResponseWriter, r *http.Request) {
+	keywords := r.Form.Get("keywords")
+	result := fmt.Sprintf("<div>%s</div>", keywords)
+	io.WriteString(w, result)
 }
