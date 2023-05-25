@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    {{if gt (len .ConfigDict) 0}}
-    {{ $firstConfig := index .ConfigDict 0 }}
-    <title>{{ $firstConfig.Home_Title }}</title>
+    
+    
+    <title>我的博客</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../sources/css/home_style.css">
     <link rel="stylesheet" href="../../sources/css/archive.style.css">
@@ -16,8 +16,8 @@
         <div class="row" id="head">
             <div class="col" id="logo">
                 <a href="home.html">
-                    <img src="{{$firstConfig.Home_Author_img}}" alt="">
-                    <span>{{$firstConfig.Home_Author}}</span>
+                    <img src="../img/logo.png" alt="">
+                    <span>陈可微</span>
                 </a>
             </div>
 
@@ -37,19 +37,19 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <span>{{$firstConfig.Home_Author}}</span>
+                <span>陈可微</span>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <span>{{$firstConfig.Home_Self_introduction}}</span>
-                {{end}}
+                <span>图拉丁吧高级会员</span>
+                
             </div>
         </div>
     </div>
     <div class="container">
         <span>标签 -</span>
-        <span>{{.TagCount}}个标签</span>
+        <span>5个标签</span>
     </div>
     <div class="container">
         <ul class="tag-list">

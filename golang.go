@@ -31,6 +31,8 @@ type Config struct {
 }
 
 func main() {
+	//计算md文件数量
+	mdCount := CountMarkdownFiles()
 	// 读取配置文件
 	var configs []Config
 	// var archive_mdinfo []Archive_MDInfo
@@ -40,9 +42,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("读取 Markdown 文件失败了: %v", err)
 	}
-
-	//计算md文件数量
-	mdCount := CountMarkdownFiles()
 
 	// ExtractMarkdown 从 Markdown 文件中提取内容并更新 Config 配置
 	for i := 0; i < len(files); i++ {
@@ -60,6 +59,9 @@ func main() {
 		configs[i].MDPath = strconv.Itoa(yearsList[i]) + "/" + configs[i].MDPath + ".html"
 	}
 
+	//计算标签数量
+	tagCount := CountTags(configs)
+
 	//读取模板html文件
 	tmpls := template.Must(template.ParseGlob("sources/templates/*.html"))
 	uniquefiles := make([]string, mdCount)
@@ -72,12 +74,14 @@ func main() {
 	data := struct {
 		ConfigDict     []Config
 		MdCount        int
+		TagCount       int
 		Archive_Year   []int
 		Archive_MDInfo [][]string
 	}{
 		ConfigDict: configs,
 		// 统计 sources/articles 文件夹下的 Markdown 文件数量
 		MdCount:        mdCount,
+		TagCount:       tagCount,
 		Archive_Year:   uniqueYears,
 		Archive_MDInfo: ExtArcInfo(uniqueYears),
 	}
@@ -195,10 +199,20 @@ func CountMarkdownFiles() int {
 	return len(files)
 }
 
+// 统计md文档的标签数量
+func CountTags(configs []Config) int {
+	count := 0
+	for i := 0; i < len(configs); i++ {
+		count = count + len(configs[i].Tags)
+	}
+	return count
+}
+
 // 生成 HTML 文件
 func CreateHTML(tmpls *template.Template, data struct {
 	ConfigDict     []Config
 	MdCount        int
+	TagCount       int
 	Archive_Year   []int
 	Archive_MDInfo [][]string
 }, uniquefiles []string, yearsList []int) {
@@ -225,6 +239,11 @@ func CreateHTML(tmpls *template.Template, data struct {
 		log.Fatalf("创建index输出文件失败: %v", err)
 	}
 
+	out_tags, err := os.Create("sources/articles/tags.html")
+	if err != nil {
+		log.Fatalf("创建tags输出文件失败: %v", err)
+	}
+
 	errs := tmpls.ExecuteTemplate(out_home, "home.html", data)
 	if errs != nil {
 		log.Fatalf("替换home模板中的占位符失败: %v", errs)
@@ -233,6 +252,11 @@ func CreateHTML(tmpls *template.Template, data struct {
 	err = tmpls.ExecuteTemplate(out_archive, "archive.html", data)
 	if err != nil {
 		log.Fatalf("替换archive模板中的占位符失败: %v", err)
+	}
+
+	err = tmpls.ExecuteTemplate(out_tags, "tags.html", data)
+	if err != nil {
+		log.Fatalf("替换tags模板中的占位符失败: %v", err)
 	}
 	fmt.Println("执行完成")
 }
@@ -333,14 +357,6 @@ func ExtArcInfo(uniqueYears []int) [][]string {
 	}
 	return arcinfo
 }
-
-// // 归档页href
-// func ExtHref() {
-// 	files, err := filepath.Glob("sources/articles/*/*.html")
-// 	if err != nil {
-// 		log.Fatalf("读取 Markdown 文件失败了: %v", err)
-// 	}
-// }
 
 // 搜索实现
 func Search(w http.ResponseWriter, r *http.Request, data []Config) {

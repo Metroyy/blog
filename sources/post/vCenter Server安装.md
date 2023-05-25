@@ -3,7 +3,7 @@ title: "vCenter Server安装"
 img: "https://cdn.gamma.app/cdn-cgi/image/quality=80,fit=scale-down,onerror=redirect,width=500/a6uyzivr086smdy/bcde7aa37d204865b27a758dcb271fa6/original/u-4010697962-4143975424-fm-253-app-120-f-JPEG-fmt-auto-q-75.jpg"
 desc: "vCenter Server安装"
 time: "2023-04-08"
-tags: "VM"
+tags: "VM,test"
 ---
 
 ### 第一阶段安装
