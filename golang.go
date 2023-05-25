@@ -1,9 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"html/template"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -81,15 +81,19 @@ func main() {
 		Archive_Year:   uniqueYears,
 		Archive_MDInfo: ExtArcInfo(uniqueYears),
 	}
-
+	// fmt.Println(data.Archive_MDInfo)
 	//检查年份文件夹，如果没有则创建各个年份的文件夹
 	MkdirYears(data.Archive_Year)
 
 	// 生成 HTML 文件
 	CreateHTML(tmpls, data, uniquefiles, yearsList)
 
-	//搜索路由
-	http.HandleFunc("/Search", Search)
+	// //搜索路由
+	http.HandleFunc("/Search", func(w http.ResponseWriter, r *http.Request) {
+		// 在匿名函数中调用Search函数并传递data结构体的值
+		Search(w, r, data.ConfigDict)
+	})
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 // 读取配置文件
@@ -230,6 +234,7 @@ func CreateHTML(tmpls *template.Template, data struct {
 	if err != nil {
 		log.Fatalf("替换archive模板中的占位符失败: %v", err)
 	}
+	fmt.Println("执行完成")
 }
 
 // 处理路径，提取md文件名
@@ -329,9 +334,40 @@ func ExtArcInfo(uniqueYears []int) [][]string {
 	return arcinfo
 }
 
+// // 归档页href
+// func ExtHref() {
+// 	files, err := filepath.Glob("sources/articles/*/*.html")
+// 	if err != nil {
+// 		log.Fatalf("读取 Markdown 文件失败了: %v", err)
+// 	}
+// }
+
 // 搜索实现
-func Search(w http.ResponseWriter, r *http.Request) {
-	keywords := r.Form.Get("keywords")
-	result := fmt.Sprintf("<div>%s</div>", keywords)
-	io.WriteString(w, result)
+func Search(w http.ResponseWriter, r *http.Request, data []Config) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	// 针对预检请求进行处理
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+	input := strings.TrimSpace(r.FormValue("input"))
+	var response []string
+	for _, item := range data {
+		if strings.Contains(string(item.Title), input) && input != "" {
+			response = append(response, item.MDPath)
+		}
+	}
+
+	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	// 设置正确的响应头
+	w.Header().Set("Content-Type", "application/json")
+
+	// 返回 JSON 字符串
+	w.Write(jsonResponse)
 }

@@ -15,7 +15,7 @@
   <div class="container-fluid">
     <div class="row" id="head">
       <div class="col" id="logo">
-        <a href="">
+        <a href="home.html">
           <img src="{{$arc.Home_Author_img}}" alt="">
           <span>{{$arc.Home_Author}}</span>
         </a>
@@ -53,20 +53,21 @@
   </div>
   <div class="container">
     <ul class="archive-list">
-      {{range .Archive_MDInfo}}  
+      {{range .Archive_MDInfo }}
+      {{ $year := index . 0 }}
       <li class="archive-item">
-        <div class="archive-year">{{ index . 0 }}年</div> 
+        <div class="archive-year">{{ $year }}年</div>
         <ul class="article-list">
-          <li class="article-item"> 
+          <li class="article-item">
             {{range $i, $j := . }}
             {{if gt $i 0 }}
-            <a href="">{{ $j }}</a><br>
-            {{end}}       
-            {{end}}      
+            <a href="{{ $year }}/{{ $j }}.html">{{ $j }}</a><br>
+            {{end}}
+            {{end}}
           </li>
-        </ul>  
+        </ul>
       </li>
-{{end}}
+      {{end}}
     </ul>
   </div>
 </body>

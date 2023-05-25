@@ -18,41 +18,41 @@ ESXI 7.0U3
 
 ### 安装ESXI 7.0U3g
 **idrac口进入管理面板**
-![img](../img/esxi/3.png)
+![img](../../img/esxi/3.png)
 
 **欢迎页面，回车下一步**
-![img](img/esxi/4.png)
+![img](../../img/esxi/4.png)
 
 **用户协议，F11下一步**
-![img](img/esxi/5.png)
+![img](../../img/esxi/5.png)
 
 **选择ESXI安装位置，回车下一步**
-![img](img/esxi/6.png)
+![img](../../img/esxi/6.png)
 
 **键盘布局，保持默认值，回车下一步**
-![img](img/esxi/7.png)
+![img](../../img/esxi/7.png)
 
 **输入root密码，回车下一步**
-![img](img/esxi/8.png)
+![img](../../img/esxi/8.png)
 
 **F11开始安装**
-![img](img/esxi/9.png)
+![img](../../img/esxi/9.png)
 
 **等待安装完成后拔掉u盘，回车重启**
-![img](img/esxi/10.png)
-![img](img/esxi/11.png)
+![img](../../img/esxi/10.png)
+![img](../../img/esxi/11.png)
 
 **加载ESXI**
-![img](img/esxi/12.png)
+![img](../../img/esxi/12.png)
 
 **加载完成，F2进入配置页**
-![img](img/esxi/13.png)
+![img](../../img/esxi/13.png)
 
 **输入管理员密码，回车进入**
-![img](img/esxi/14.png)
+![img](../../img/esxi/14.png)
 
 **完成网络配置后，浏览器输入地址进入ESXI控制台**
-![img](img/esxi/15.png)
+![img](../../img/esxi/15.png)
 
 
 ### 参考文献

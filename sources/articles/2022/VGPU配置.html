@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row" id="head">
             <div class="col" id="logo">
-                <a href="">
+                <a href="../home.html">
                     <img src="../../img/logo.png" alt="">
                     <span>陈可微</span>
                 </a>
@@ -71,7 +71,7 @@
 </code></pre>
 
 <p>测试本地图片：
-<img src="../img/title.png" alt="img" /></p>
+<img src="../../img/title.png" alt="img" /></p>
 
 <p>测试本地图片：
 <a href="https://tse2-mm.cn.bing.net/th/id/OIP-C.sM4IE-0sfN9ICstIElrXNQHaF4?pid=ImgDet&amp;rs=1">img</a></p>
@@ -99,16 +99,16 @@ _测试</p>
 <h3>esxi安装vgpu驱动</h3>
 
 <p><strong>设置显卡禁止直通</strong>
-<img src="../img/vgpu/2.png" alt="img" /></p>
+<img src="../../img/vgpu/2.png" alt="img" /></p>
 
 <p><strong>上传驱动vib文件</strong>
-<img src="../img/vgpu/3.png" alt="img" /></p>
+<img src="../../img/vgpu/3.png" alt="img" /></p>
 
 <p><strong>进入维护模式</strong>
-<img src="../img/vgpu/4.png" alt="img" /></p>
+<img src="../../img/vgpu/4.png" alt="img" /></p>
 
 <p><strong>设置读写权限</strong>
-<img src="../img/vgpu/5.png" alt="img" /></p>
+<img src="../../img/vgpu/5.png" alt="img" /></p>
 
 <p><strong>安装驱动</strong></p>
 
@@ -116,7 +116,7 @@ _测试</p>
 esxcli software vib update -v (vib文件路径) ---更新驱动
 </code></pre>
 
-<p><img src="../img/vgpu/6.png" alt="img" /></p>
+<p><img src="../../img/vgpu/6.png" alt="img" /></p>
 
 <p><strong>验证驱动</strong></p>
 
@@ -124,13 +124,13 @@ esxcli software vib update -v (vib文件路径) ---更新驱动
 nvidia-smi -e 0 ---若ECC不为OFF
 </code></pre>
 
-<p><img src="../img/vgpu/7.png" alt="img" />
+<p><img src="../../img/vgpu/7.png" alt="img" />
 <strong>若红框为Xorg</strong>
 <strong>设置显卡共享类型</strong>
-<img src="../img/vgpu/8.png" alt="img" /></p>
+<img src="../../img/vgpu/8.png" alt="img" /></p>
 
 <p><strong>切换直接共享</strong>
-<img src="../img/vgpu/9.png" alt="img" /></p>
+<img src="../../img/vgpu/9.png" alt="img" /></p>
 
 <p><strong>再次验证驱动，如图即可</strong></p>
 
@@ -138,13 +138,13 @@ nvidia-smi -e 0 ---若ECC不为OFF
 lspci | grep NVIDIA
 </code></pre>
 
-<p><img src="../img/vgpu/10.png" alt="img" />
-<img src="../img/vgpu/11.png" alt="img" /></p>
+<p><img src="../../img/vgpu/10.png" alt="img" />
+<img src="../../img/vgpu/11.png" alt="img" /></p>
 
 <h3>安装授权服务器licserve</h3>
 
 <p><strong>lic版本对照表</strong>
-<img src="../img/vgpu/1.png" alt="img" /></p>
+<img src="../../img/vgpu/1.png" alt="img" /></p>
 
 <p><strong>配置CentOS虚拟机</strong></p>
 
@@ -160,10 +160,10 @@ yum install tomcat tomcat-webapps -y ---安装tomcat
 <pre><code class="language-bash">scp setup.bin root@IP:文件夹
 </code></pre>
 
-<p><img src="../img/vgpu/12.png" alt="img" /></p>
+<p><img src="../../img/vgpu/12.png" alt="img" /></p>
 
 <p><strong>验证上传</strong>
-<img src="../img/vgpu/13.png" alt="img" /></p>
+<img src="../../img/vgpu/13.png" alt="img" /></p>
 
 <p><strong>安装licserve</strong></p>
 
@@ -171,7 +171,7 @@ yum install tomcat tomcat-webapps -y ---安装tomcat
 /usr/share/tomcat ---提示输入tomcat路径时输入默认路径
 </code></pre>
 
-<p><img src="../img/vgpu/14.png" alt="img" /></p>
+<p><img src="../../img/vgpu/14.png" alt="img" /></p>
 
 <p><strong>服务设置</strong></p>
 
@@ -188,13 +188,13 @@ systemctl list-unit-files ---查看所有自启服务  we前后 q退出
 <pre><code class="language-bash">http://ip:8080/licserver ---浏览器进入管理页面
 </code></pre>
 
-<p><img src="../img/vgpu/15.png" alt="img" /></p>
+<p><img src="../../img/vgpu/15.png" alt="img" /></p>
 
 <p><strong>导入vib授权文件</strong>
-<img src="../img/vgpu/16.png" alt="img" /></p>
+<img src="../../img/vgpu/16.png" alt="img" /></p>
 
 <p><strong>验证授权</strong>
-<img src="../img/vgpu/17.png" alt="img" /></p>
+<img src="../../img/vgpu/17.png" alt="img" /></p>
 
 <p><strong>授权服务器打开NTP自动同步</strong></p>
 
@@ -207,14 +207,14 @@ date ---查看系统时间是否正确
 </code></pre>
 
 <p><strong>下载对应的guid驱动，并安装</strong>
-<img src="../img/vgpu/18.png" alt="img" /></p>
+<img src="../../img/vgpu/18.png" alt="img" /></p>
 
 <p><strong>进入驱动面板，输入授权服务器ip及7070授权端口</strong>
-<img src="../img/vgpu/19.png" alt="img" /></p>
+<img src="../../img/vgpu/19.png" alt="img" /></p>
 
 <p><strong>管理面板验证授权成功</strong>
-<img src="../img/vgpu/20.png" alt="img" />
-<img src="../img/vgpu/21.png" alt="img" /></p>
+<img src="../../img/vgpu/20.png" alt="img" />
+<img src="../../img/vgpu/21.png" alt="img" /></p>
 
     </div>
 </body>

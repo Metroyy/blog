@@ -139,3 +139,14 @@ body,
     margin-right: 5px;
     color: #a1b2b4;
   }
+
+  #search-results{
+    display: none;
+    border-radius: 10px;
+    position: absolute;
+    top: 275px;
+    width: 240px;
+    max-height: 100px;
+    text-align: center;
+    background-color: aqua;
+  }

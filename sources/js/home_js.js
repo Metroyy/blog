@@ -1,10 +1,22 @@
-$('#search').on('input', function() {
+$('#search').on('input', function () {
+    var input = $(this).val()
     $.ajax({
-        url: '/Search',
+        url: 'http://localhost:8080/Search',
         method: 'POST',
-        data: {keywords: $(this).val()},
-        success: function(results) {
-            $('#search-results').html(results) 
+        data: { input: input },
+        success: function (response) {
+            if (response != "") {
+                $('#search-results').css('display', 'block');
+                var resultHTML = "";
+                for (var i = 0; i < response.length; i++) {
+                    var path = response[i].substring(5);
+                    path = path.substring(0, path.length - 5);
+                    resultHTML += "<a target='_blank' href='" + response[i] + "'>" + path + "</a><br>";
+                }
+                $('#search-results').html(resultHTML);
+            }else {
+                $('#search-results').css('display', 'none');
+            }
         }
     })
-}) 
+})
