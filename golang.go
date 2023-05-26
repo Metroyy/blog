@@ -59,8 +59,8 @@ func main() {
 		configs[i].MDPath = strconv.Itoa(yearsList[i]) + "/" + configs[i].MDPath + ".html"
 	}
 
-	//计算标签数量
-	tagCount := CountTags(configs)
+	//计算标签,数量
+	tagCount, uniqueTags := CountTags(configs)
 
 	//读取模板html文件
 	tmpls := template.Must(template.ParseGlob("sources/templates/*.html"))
@@ -75,6 +75,7 @@ func main() {
 		ConfigDict     []Config
 		MdCount        int
 		TagCount       int
+		TagsInfo       map[string]int
 		Archive_Year   []int
 		Archive_MDInfo [][]string
 	}{
@@ -82,6 +83,7 @@ func main() {
 		// 统计 sources/articles 文件夹下的 Markdown 文件数量
 		MdCount:        mdCount,
 		TagCount:       tagCount,
+		TagsInfo:       uniqueTags,
 		Archive_Year:   uniqueYears,
 		Archive_MDInfo: ExtArcInfo(uniqueYears),
 	}
@@ -199,13 +201,21 @@ func CountMarkdownFiles() int {
 	return len(files)
 }
 
-// 统计md文档的标签数量
-func CountTags(configs []Config) int {
-	count := 0
+// 统计md文档的标签数量，循环所有标签
+func CountTags(configs []Config) (count int, uniqueTags map[string]int) {
+	uniqueTags = make(map[string]int)
 	for i := 0; i < len(configs); i++ {
-		count = count + len(configs[i].Tags)
+		count += len(configs[i].Tags)
+		for _, tag := range configs[i].Tags {
+			tag = strings.TrimSpace(tag)
+			if _, ok := uniqueTags[tag]; !ok {
+				uniqueTags[tag] = 1
+			} else {
+				uniqueTags[tag]++
+			}
+		}
 	}
-	return count
+	return count, uniqueTags
 }
 
 // 生成 HTML 文件
@@ -213,6 +223,7 @@ func CreateHTML(tmpls *template.Template, data struct {
 	ConfigDict     []Config
 	MdCount        int
 	TagCount       int
+	TagsInfo       map[string]int
 	Archive_Year   []int
 	Archive_MDInfo [][]string
 }, uniquefiles []string, yearsList []int) {
@@ -236,12 +247,17 @@ func CreateHTML(tmpls *template.Template, data struct {
 
 	out_archive, err := os.Create("sources/articles/archive.html")
 	if err != nil {
-		log.Fatalf("创建index输出文件失败: %v", err)
+		log.Fatalf("创建archive输出文件失败: %v", err)
 	}
 
 	out_tags, err := os.Create("sources/articles/tags.html")
 	if err != nil {
 		log.Fatalf("创建tags输出文件失败: %v", err)
+	}
+
+	out_tag, err := os.Create("sources/articles/tag.html")
+	if err != nil {
+		log.Fatalf("创建tag输出文件失败: %v", err)
 	}
 
 	errs := tmpls.ExecuteTemplate(out_home, "home.html", data)
@@ -257,6 +273,11 @@ func CreateHTML(tmpls *template.Template, data struct {
 	err = tmpls.ExecuteTemplate(out_tags, "tags.html", data)
 	if err != nil {
 		log.Fatalf("替换tags模板中的占位符失败: %v", err)
+	}
+
+	err = tmpls.ExecuteTemplate(out_tag, "tag.html", data)
+	if err != nil {
+		log.Fatalf("替换tag模板中的占位符失败: %v", err)
 	}
 	fmt.Println("执行完成")
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  {{if gt (len .ConfigDict) 0}}
+  {{ $firstConfig := index .ConfigDict 0 }}
+  <title>{{ $firstConfig.Home_Title }}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../sources/css/home_style.css">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row" id="head">
+      <div class="col" id="logo">
+        <a href="">
+          <img src="{{$firstConfig.Home_Author_img}}" alt="">
+          <span>{{$firstConfig.Home_Author}}</span>
+        </a>
+      </div>
+
+      <div class="col" id="navigation">
+        <a href="archive.html">
+          <span>归档</span>
+        </a>
+        <a href="tags.html">
+          <span>标签</span>
+        </a>
+        <a href="">
+          <span>订阅</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="introduction">
+    <div class="row">
+      <div class="col">
+        <img src="{{$firstConfig.Home_Author_img}}" alt="">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span>{{$firstConfig.Home_Author}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span>{{$firstConfig.Home_Self_introduction}}</span>
+        {{end}}
+      </div>
+    </div>
+</div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>

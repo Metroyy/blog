@@ -3,7 +3,7 @@ title: "VGPU配置"
 desc: "VGPU配置"
 img: "https://cdn.gamma.app/cdn-cgi/image/quality=80,fit=scale-down,onerror=redirect,width=500/a6uyzivr086smdy/bcde7aa37d204865b27a758dcb271fa6/original/u-4010697962-4143975424-fm-253-app-120-f-JPEG-fmt-auto-q-75.jpg"
 time: "2022-04-12"
-tags: "VGPU"
+tags: "VGPU,test"
 ---
 
 测试纯文字：

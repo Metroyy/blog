@@ -5,7 +5,7 @@ $('#search').on('input', function () {
         method: 'POST',
         data: { input: input },
         success: function (response) {
-            if (response != "") {
+            if (input != "") {
                 $('#search-results').css('display', 'block');
                 var resultHTML = "";
                 for (var i = 0; i < response.length; i++) {
