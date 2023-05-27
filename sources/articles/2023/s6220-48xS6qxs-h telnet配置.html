@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>iKev2搭建</title>
+    <title>chemex资产管理系统部署</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
     <link rel="stylesheet" href="../../css/home_style.css">
@@ -35,14 +35,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <p>iKev2搭建</p>
+                <p>chemex资产管理系统部署</p>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <img src="../../img/logo.png" alt="">
                 <span>陈可微</span>
-                <span class="body_articles_tag"><a href="">[iKev2]</a></span>
+                <span class="body_articles_tag"><a href="">[chemex]</a></span>
             </div>
         </div>
     </div>
@@ -50,84 +50,50 @@
         <img src="" alt="">
     </div>
     <div class="container">
-        <h3>安装</h3>
+        <h3>环境</h3>
 
-<p><strong>系统环境</strong>
-<code>Ubuntu 20.0.4</code></p>
+<pre><code class="language-yaml">git：用于管理版本，部署和升级必要工具。
+PHP：仅支持 PHP8.1或以上。
+composer：PHP 的包管理工具，用于安装必要的依赖包。
+MySQL 5.7：数据库引擎，理论上 MariaDB 10.2 + 兼容支持。
 
-<p><strong>更新源</strong></p>
-
-<pre><code class="language-bash"> sudo apt-get update
+ext-zip：扩展。
+ext-json：扩展。
+ext-fileinfo：扩展。
+ext-ldap：扩展。
+ext-bcmath：扩展。
+ext-mysqli：扩展。
+ext-xml：扩展。
+ext-xmlrpc：扩展。
+以上扩展安装过程注意版本必须与 PHP 版本一致。
 </code></pre>
 
-<p><strong>拉取源代码</strong></p>
+<h3>安装</h3>
 
-<pre><code class="language-bash"> wget &lt;https://get.vpnsetup.net&gt; -O vpn.sh &amp;&amp; sudo sh vpn.sh
+<pre><code class="language-bash">mkdir chemex
+cd chemex
+git clone &lt;https://gitee.com/celaraze/chemex.git&gt; .
+git submodule init
+git submodule update
+cp .env.example .env ---根据.env文件注释配置
+composer update -vvv ---确保起始路径在 /public 目录
 </code></pre>
 
-<h3><strong>命令</strong></h3>
+<p><strong>设置伪静态规则</strong></p>
 
-<p><strong>列出已有的客户端</strong></p>
-
-<pre><code class="language-bash"> sudo ikev2.sh --listclients
+<pre><code class="language-bash">try_files $uri $uri/ /index.php?$args;
 </code></pre>
 
-<p><strong>添加客户端证书</strong></p>
+<p><strong>启动服务</strong></p>
 
-<pre><code class="language-bash"> sudo ikev2.sh --addclient client name
-</code></pre>
-
-<p><strong>导出已有的客户端配置</strong></p>
-
-<pre><code class="language-bash"> sudo ikev2.sh --exportclient client name
-</code></pre>
-
-<p><strong>吊销客户端证书</strong></p>
-
-<pre><code class="language-bash"> sudo ikev2.sh --revokeclient client name
-</code></pre>
-
-<p><strong>删除客户端</strong></p>
-
-<pre><code class="language-bash"> sudo ikev2.sh --deleteclient client name
-</code></pre>
-
-<p><strong>重启IPsec服务</strong></p>
-
-<pre><code class="language-bash"> service ipsec restart service xl2tpd restart
-</code></pre>
-
-<p><strong>检查 IPsec VPN 服务器状态</strong></p>
-
-<pre><code class="language-bash"> ipsec status
-</code></pre>
-
-<p><strong>查看当前已建立的 VPN 连接</strong></p>
-
-<pre><code class="language-bash"> ipsec trafficstatus
-</code></pre>
-
-<p><strong>移除iKev2</strong></p>
-
-<pre><code class="language-bash"> sudo ikev2.sh --removeikev2
-</code></pre>
-
-<p><strong>检查 Libreswan (IPsec) 和 xl2tpd 日志是否有错误</strong></p>
-
-<pre><code class="language-bash">grep pluto /var/log/auth.log ---Ubuntu &amp; Debian
-grep xl2tpd /var/log/syslog
-
-grep pluto /var/log/secure ---CentOS/RHEL, Rocky Linux, AlmaLinux, Oracle Linux &amp; Amazon Linux 2
-grep xl2tpd /var/log/messages
-
-grep pluto /var/log/messages ---Alpine Linux
-grep xl2tpd /var/log/messages
+<pre><code class="language-bash">php artisan chemex:install ---报错则检查php扩展插件
+http://[domain] ---默认账号密码admin
 </code></pre>
 
 <h3>参考文献</h3>
 
-<p><a href="https://github.com/hwdsl2/setup-ipsec-vpn">ikev2</a>
-<a href="https://github.com/hwdsl2/setup-ipsec-vpn/blob/master/docs/clients-zh.md#%E6%A3%80%E6%9F%A5%E6%97%A5%E5%BF%97%E5%8F%8A-vpn-%E7%8A%B6%E6%80%81">错误码对照</a></p>
+<p><a href="https://github.com/celaraze/chemex">chemex资产管理系统</a>
+<a href="https://www.yuque.com/xpesir/chemexdocs">chemex第三方文档</a></p>
 
     </div>
 </body>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>chemex资产管理系统部署</title>
+    <title>docker部署</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
     <link rel="stylesheet" href="../../css/home_style.css">
@@ -35,14 +35,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <p>chemex资产管理系统部署</p>
+                <p>docker部署</p>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <img src="../../img/logo.png" alt="">
                 <span>陈可微</span>
-                <span class="body_articles_tag"><a href="">[chemex]</a></span>
+                <span class="body_articles_tag"><a href="">[docker]</a></span>
             </div>
         </div>
     </div>
@@ -50,50 +50,87 @@
         <img src="" alt="">
     </div>
     <div class="container">
-        <h3>环境</h3>
+        <p><strong>更改时区</strong></p>
 
-<pre><code class="language-yaml">git：用于管理版本，部署和升级必要工具。
-PHP：仅支持 PHP8.1或以上。
-composer：PHP 的包管理工具，用于安装必要的依赖包。
-MySQL 5.7：数据库引擎，理论上 MariaDB 10.2 + 兼容支持。
-
-ext-zip：扩展。
-ext-json：扩展。
-ext-fileinfo：扩展。
-ext-ldap：扩展。
-ext-bcmath：扩展。
-ext-mysqli：扩展。
-ext-xml：扩展。
-ext-xmlrpc：扩展。
-以上扩展安装过程注意版本必须与 PHP 版本一致。
+<pre><code class="language-bash">timedatectl set-timezone Asia/Shanghai
 </code></pre>
 
-<h3>安装</h3>
+<p><strong>检查更改</strong></p>
 
-<pre><code class="language-bash">mkdir chemex
-cd chemex
-git clone &lt;https://gitee.com/celaraze/chemex.git&gt; .
-git submodule init
-git submodule update
-cp .env.example .env ---根据.env文件注释配置
-composer update -vvv ---确保起始路径在 /public 目录
+<pre><code class="language-bash">timedatectl
 </code></pre>
 
-<p><strong>设置伪静态规则</strong></p>
+<p><strong>更新源</strong></p>
 
-<pre><code class="language-bash">try_files $uri $uri/ /index.php?$args;
+<pre><code class="language-bash">yum -y update
 </code></pre>
 
-<p><strong>启动服务</strong></p>
+<p><strong>卸载旧版本 docker</strong></p>
 
-<pre><code class="language-bash">php artisan chemex:install ---报错则检查php扩展插件
-http://[domain] ---默认账号密码admin
+<pre><code class="language-bash">yum remove docker  docker-common docker-selinux docker-engine
 </code></pre>
 
-<h3>参考文献</h3>
+<p><strong>设置docker yum源</strong></p>
 
-<p><a href="https://github.com/celaraze/chemex">chemex资产管理系统</a>
-<a href="https://www.yuque.com/xpesir/chemexdocs">chemex第三方文档</a></p>
+<pre><code class="language-bash">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum makecache fast
+</code></pre>
+
+<p><strong>安装docker</strong></p>
+
+<pre><code class="language-bash">yum -y install docker-ce
+</code></pre>
+
+<blockquote>
+<p><strong>境外安装docker</strong></p>
+
+<pre><code class="language-bash">&gt; curl -fsSL &lt;https://get.docker.com&gt; | bash -s docker
+&gt; ```
+
+**启动并加入开机启动**
+
+</code></pre>
+
+<p>bash
+systemctl start docker
+systemctl enable docker</p>
+
+<pre><code>
+**验证安装**
+
+</code></pre>
+
+<p>bash
+docker version</p>
+
+<pre><code>
+**可选扩展Docker-Compose**
+
+</code></pre>
+
+<p>bash
+sudo curl -L <a href="https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname">https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname</a> -s<code>-</code>uname -m<code>-o /usr/local/bin/docker-compose ---github安装最新版
+sudo curl -L https://get.daocloud.io/docker/compose/releases/download/1.25.1/docker-compose-</code>uname -s<code>-</code>uname -m` -o /usr/local/bin/docker-compose &mdash;如果跑不动则换daocloud</p>
+
+<pre><code>
+</code></pre>
+
+<p>bash
+yum -y install epel-release &mdash;再不行换pip安装
+yum -y install python-pip
+pip &ndash;version &mdash;查看版本
+pip install &ndash;upgrade pip &mdash;更新pip
+pip install docker-compose &mdash;安装</p>
+
+<pre><code>
+**设置权限**
+
+</code></pre>
+
+<p>bash
+sudo chmod +x /usr/local/bin/docker-compose
+```</p>
+</blockquote>
 
     </div>
 </body>

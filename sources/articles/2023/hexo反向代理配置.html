@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>postgresql增删改查</title>
+    <title>amh伪静态踩坑记录</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
     <link rel="stylesheet" href="../../css/home_style.css">
@@ -35,14 +35,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <p>postgresql增删改查</p>
+                <p>amh伪静态踩坑记录</p>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <img src="../../img/logo.png" alt="">
                 <span>陈可微</span>
-                <span class="body_articles_tag"><a href="">[postgresql]</a></span>
+                <span class="body_articles_tag"><a href="">[amh 伪静态]</a></span>
             </div>
         </div>
     </div>
@@ -50,71 +50,14 @@
         <img src="" alt="">
     </div>
     <div class="container">
-        <h3>增</h3>
+        <h3>起因</h3>
 
-<p><strong>语法</strong></p>
+<p><strong>部署fastadmin时，访问后端返回404，经排查问题出在伪静态配置</strong></p>
 
-<pre><code class="language-sql">INSERT INTO 表名 (列1, 列2, 列3,...列N)
-VALUES ('值1', '值2', '值3',...'值N');
-</code></pre>
+<h3>解决方案</h3>
 
-<p><strong>例</strong></p>
-
-<pre><code class="language-sql">INSERT INTO &quot;mima&quot; (&quot;desc&quot;, &quot;user_name&quot;, &quot;static_postion&quot;, &quot;make_postion&quot;) 
-VALUES ('RUhhdV6JkQ', 'Laura Vargas', 'K37kDJXSsZ', 'H1FwzDeyAK');
-</code></pre>
-
-<h3>删</h3>
-
-<p><strong>语法</strong></p>
-
-<pre><code class="language-sql">DELETE FROM 表名 
-WHERE 条件;
-</code></pre>
-
-<p><strong>例</strong></p>
-
-<pre><code class="language-sql">DELETE FROM mima WHERE id = 1;
-</code></pre>
-
-<h3>改</h3>
-
-<p><strong>语法</strong></p>
-
-<pre><code class="language-sql">UPDATE 表名 SET 列1 = '值1', 列2 = '值2'...., 列N = '值N' 
-WHERE 条件;
-</code></pre>
-
-<p><strong>例</strong></p>
-
-<pre><code class="language-sql">UPDATE mima
-SET &quot;desc&quot; = '银行卡密码',user_name = 'YY',static_postion= '123yy',make_postion = '中国银行'
-WHERE id = 1;
-</code></pre>
-
-<h3>查</h3>
-
-<p><strong>语法</strong></p>
-
-<pre><code class="language-sql">SELECT 列1, 列2,...列N FROM 表名
-WHERE 条件;
-</code></pre>
-
-<p><strong>例</strong></p>
-
-<pre><code class="language-sql">#查询所有
-SELECT * FROM 表名;
-SELECT * FROM mima;
-
-#查询某列
-SELECT 列名 FROM 表名;
-SELECT desc FROM mima;
-
-#查询多列
-SELECT 列1,列2,列3 FROM 表名;
-SELECT id,user_name FROM mima;
-
-</code></pre>
+<p><strong>因amh安装时不带pathinfo，需手动安装</strong>
+<strong>趟坑时长：两天半</strong></p>
 
     </div>
 </body>

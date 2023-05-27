@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Dell R730XD 配置RAID</title>
+    <title>Debian PostgreSQL安装配置</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
     <link rel="stylesheet" href="../../css/home_style.css">
@@ -35,14 +35,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <p>Dell R730XD 配置RAID</p>
+                <p>Debian PostgreSQL安装配置</p>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <img src="../../img/logo.png" alt="">
                 <span>陈可微</span>
-                <span class="body_articles_tag"><a href="">[Dell R730XD RAID]</a></span>
+                <span class="body_articles_tag"><a href="">[Debian PostgreSQL]</a></span>
             </div>
         </div>
     </div>
@@ -50,32 +50,86 @@
         <img src="" alt="">
     </div>
     <div class="container">
-        <p><strong>自检页面按下F10进入配置页</strong>
-<img src="../../img/raid/1.png" alt="img" />
-<img src="../../img/raid/2.png" alt="img" /></p>
+        <p><strong>切换为root用户</strong></p>
 
-<p><strong>初次进入会自动进入引导页面，点击右下角Cancle退出</strong>
-<strong>修改语言为简体中文</strong>
-<img src="../../img/raid/3.png" alt="img" />
-<img src="../../img/raid/4.png" alt="img" /></p>
+<pre><code class="language-bash"> sudo su
+</code></pre>
 
-<p><strong>点击配置RAID，并点击下一步</strong>
-<img src="../../img/raid/5.png" alt="img" />
-<img src="../../img/raid/6.png" alt="img" /></p>
+<p><strong>更新APT包索引</strong></p>
 
-<p><strong>选择阵列方案，并点击下一步</strong>
-<img src="../../img/raid/7.png" alt="img" /></p>
+<pre><code class="language-bash"> sudo apt update
+</code></pre>
 
-<p><strong>选择需要阵列的磁盘，并点击下一步</strong>
-<img src="../../img/raid/8.png" alt="img" /></p>
+<p><strong>安装 PostgreSQL服务</strong></p>
 
-<p><strong>输入阵列名，并点击下一步</strong>
-<img src="../../img/raid/9.png" alt="img" /></p>
+<pre><code class="language-bash"> sudo apt install postgresql
+</code></pre>
 
-<p><strong>点击完成</strong>
-<img src="../../img/raid/10.png" alt="img" />
-<img src="../../img/raid/11.png" alt="img" />
-<img src="../../img/raid/12.png" alt="img" /></p>
+<p><strong>安装校验</strong></p>
+
+<pre><code class="language-bash"> sudo -u postgres psql -c &quot;SELECT version();&quot;
+</code></pre>
+
+<p><strong>默认情况下PostgreSQL服务器仅在本地监听127.0.0.1:5432
+如果需要远程连接PostgreSQL服务器，则需要将服务器设置为公网IP上监听，并编辑配置文件</strong></p>
+
+<p><strong>配置文件路径</strong></p>
+
+<pre><code class="language-bash"> vi /etc/postgresql/13/main/postgresql.conf
+</code></pre>
+
+<p><strong>修改如下内容</strong></p>
+
+<pre><code class="language-bash">- CONECTIONS AND AUTHENTICATION
+listen_addresses =  ’*’  #what IP address(es) to listen on;
+</code></pre>
+
+<p><strong>保存文件并重启PostgreSQL</strong></p>
+
+<pre><code class="language-bash">sudo service postgresql restart
+</code></pre>
+
+<p><strong>使用ss验证更改</strong></p>
+
+<pre><code class="language-bash"> ss -nlt | grep 5432
+LISTEN 0  128   0.0.0.0:5432   0.0.0.0:*
+LISTEN 0  128    [::]:5432    [::]:*
+</code></pre>
+
+<p><strong>编辑pg_hba.conf文件使其接受远程登录</strong></p>
+
+<pre><code class="language-bash"> vi /etc/postgresql/13/main/pg_hba.conf
+</code></pre>
+
+<p><strong>找到#IPv4 local connections插入命令</strong></p>
+
+<pre><code class="language-bash"> host  all  all  0.0.0.0/0  md5
+</code></pre>
+
+<p><strong>切换Postgres用户</strong></p>
+
+<pre><code class="language-bash"> su postgres
+</code></pre>
+
+<p><strong>链接数据库</strong></p>
+
+<pre><code class="language-bash"> psql
+</code></pre>
+
+<p><strong>修改postersql默认密码</strong></p>
+
+<pre><code class="language-bash"> \password postgres 根据命令提示输入密码
+</code></pre>
+
+<p><strong>创建数据库用户</strong></p>
+
+<pre><code class="language-bash"> CREATE USER zhangsan WITH PASSWORD ‘zhangsan123;
+</code></pre>
+
+<p><strong>创建数据库</strong></p>
+
+<pre><code class="language-bash"> CREATE DATABASE test_db OWNER zhangsan;
+</code></pre>
 
     </div>
 </body>

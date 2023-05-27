@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Active Directory域加域</title>
+    <title>Active Directory主辅域配置</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
     <link rel="stylesheet" href="../../css/home_style.css">
@@ -35,7 +35,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <p>Active Directory域加域</p>
+                <p>Active Directory主辅域配置</p>
             </div>
         </div>
         <div class="row">
@@ -50,18 +50,96 @@
         <img src="" alt="">
     </div>
     <div class="container">
-        <p><strong>配置IP地址（静态）</strong>
-<img src="../../img/ad/29.png" alt="img" /></p>
+        <h3>AD主域配置</h3>
 
-<p><strong>计算机名/域更改，输入域</strong>
-<img src="../../img/ad/30.png" alt="img" /></p>
+<p><strong>AD域服务器配置IP地址（静态）、DNS（由于域控服务器兼DNS服务器固DNS地址填写本机IP地址）</strong>
+<img src="../../img/ad/1.png" alt="img" /></p>
 
-<p><strong>输入域账户，密码</strong>
-<img src="../../img/ad/31.png" alt="img" /></p>
+<p><strong>修改计算机名</strong>
+<img src="../../img/ad/2.png" alt="img" /></p>
 
-<p><strong>加域成功</strong>
-<img src="../../img/ad/32.png" alt="img" />
-<img src="../../img/ad/33.png" alt="img" /></p>
+<p><strong>打开服务器管理器</strong>
+<strong>点击“添加角色和功能”按钮</strong>
+<img src="../../img/ad/3.png" alt="img" /></p>
+
+<p><strong>保持默认值，并点击下一步</strong>
+<img src="../../img/ad/4.png" alt="img" /></p>
+
+<p><strong>保持默认值，并点击下一步</strong>
+<img src="../../img/ad/5.png" alt="img" /></p>
+
+<p><strong>保持默认值，并点击下一步</strong>
+<img src="../../img/ad/6.png" alt="img" /></p>
+
+<p><strong>选择Active Directory域服务</strong>
+<img src="../../img/ad/7.png" alt="img" /></p>
+
+<p><strong>单机“添加功能”按钮，并点击下一步</strong>
+<img src="../../img/ad/8.png" alt="img" /></p>
+
+<p><strong>保持默认值，并点击下一步</strong>
+<img src="../../img/ad/9.png" alt="img" /></p>
+
+<p><strong>保持默认值，并点击下一步</strong>
+<img src="../../img/ad/10.png" alt="img" /></p>
+
+<p><strong>勾选“如果需要，自动重新启动目标服务器”</strong>
+<strong>单击弹出的对话框中的“是”按钮，并点击安装按钮</strong>
+<img src="../../img/ad/11.png" alt="img" /></p>
+
+<p><strong>单击“关闭”按钮，完成安装</strong>
+<img src="../../img/ad/12.png" alt="img" /></p>
+
+<p><strong>单击黄色感叹号，并点击“将此服务器提升为域控制器”</strong>
+<img src="../../img/ad/13.png" alt="img" /></p>
+
+<p><strong>点击“添加新林”，并在根域名输入框中输入域名信息，然后点击安装</strong>
+<img src="../../img/ad/14.png" alt="img" /></p>
+
+<p><strong>输入目录服务器还原模式（DSRM）密码，然后点击下一步</strong>
+<img src="../../img/ad/15.png" alt="img" /></p>
+
+<p><strong>提示域中没有DNS服务器，点击下一步</strong>
+<img src="../../img/ad/16.png" alt="img" /></p>
+
+<p><strong>保持默认值，并点击下一步</strong>
+<img src="../../img/ad/17.png" alt="img" /></p>
+
+<p><strong>保持默认值，并点击下一步</strong>
+<img src="../../img/ad/18.png" alt="img" /></p>
+
+<p><strong>保持默认值，并点击下一步</strong>
+<img src="../../img/ad/19.png" alt="img" /></p>
+
+<p><strong>点击“安装”按钮，启动安装进程</strong>
+<img src="../../img/ad/20.png" alt="img" /></p>
+
+<p><strong>安装完成后，计算机会自动重启，重启之后，此计算机已经被提升为主域控制器，并且自动安装了DNS服务器</strong>
+<img src="../../img/ad/21.png" alt="img" /></p>
+
+<h3>AD辅域配置</h3>
+
+<p><strong>AD辅域服务步骤与安装主域相同</strong>
+<img src="../../img/ad/22.png" alt="img" /></p>
+
+<p><strong>单击黄色感叹号，并点击“将此服务器提升为域控制器”</strong>
+<img src="../../img/ad/23.png" alt="img" /></p>
+
+<p><strong>选择&rdquo;将域控制器添加到现有域&rdquo;并输入主域</strong>
+<img src="../../img/ad/24.png" alt="img" /></p>
+
+<p><strong>输入主域账号，并点击下一步</strong>
+<img src="../../img/ad/25.png" alt="img" /></p>
+
+<p><strong>输入目录服务器还原模式（DSRM）密码，然后点击下一步</strong>
+<img src="../../img/ad/26.png" alt="img" /></p>
+
+<p><strong>选择复制自主域，并点击下一步</strong>
+<strong>其余步骤与主域相同</strong>
+<img src="../../img/ad/27.png" alt="img" /></p>
+
+<p><strong>完成安装后可在域控制器查看到AD01,AD02</strong>
+<img src="../../img/ad/28.png" alt="img" /></p>
 
     </div>
 </body>

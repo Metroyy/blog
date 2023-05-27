@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Hexo博客建站</title>
+    <title>Hexo反向代理配置</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
     <link rel="stylesheet" href="../../css/home_style.css">
@@ -35,14 +35,14 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <p>Hexo博客建站</p>
+                <p>Hexo反向代理配置</p>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <img src="../../img/logo.png" alt="">
                 <span>陈可微</span>
-                <span class="body_articles_tag"><a href="">[Hexo]</a></span>
+                <span class="body_articles_tag"><a href="">[Hexo 反向代理]</a></span>
             </div>
         </div>
     </div>
@@ -50,90 +50,22 @@
         <img src="" alt="">
     </div>
     <div class="container">
-        <p><strong>安装Hexo</strong></p>
+        <p><font color=gray><strong>Nginx配置</strong></font></p>
 
-<pre><code class="language-bash">npm install -g hexo-cli ---全局安装
-npm install hexo ---局部安装
+<pre><code class="language-yaml">    location / {
+        proxy_pass http://127.0.0.1:端口;
+    }
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp3|wma|js|css)${
+        proxy_pass http://127.0.0.1:端口;
+        expires      30d;
+    }
+	
+    location ~ .*\.(js|css)${
+        proxy_pass http://127.0.0.1:端口;
+        expires      12h;
+    }
 </code></pre>
-
-<blockquote>
-<p><strong>安装以后，可以使用以下两种方式执行 Hexo：</strong></p>
-
-<pre><code class="language-bash">&gt; npx hexo &lt;command&gt;
-&gt; ```
-&gt; **Hexo所在的目录下的`node_modules`添加到环境变量中即可`hexo &lt;command&gt;`：**
-&gt; ```bash
-&gt;   echo 'PATH=&quot;$PATH:./node_modules/.bin&quot;' &gt;&gt; ~/.profile
-&gt; ```
-
-**初始化Hexo**
-</code></pre>
-
-<p>bash
-hexo init <folder>
-cd <folder>
-npm install</p>
-
-<pre><code>
-**完成初始化后，目录如下：**
-</code></pre>
-
-<p>yaml
-hexo/
-  |- node_modules/  # hexo需要的模块，不需要上传GitHub
-  |- themes/        	# 主题文件，需要上传GitHub的dev分支
-  |- sources/       	# 博文md文件，需要上传GitHub的dev分支
-  |- public/        	# 生成的静态页面，由hexo deploy自动上传到gh-page分支
-  |- package.json  	# 记录hexo需要的包信息，不需要上传GitHub
-  |- _config.yml    	# 全局配置文件，需要上传GitHub的dev分支
-  |- .gitignore       	# hexo生成默认的.gitignore，它已经配置好了不需要上传的hexo文件</p>
-
-<pre><code>
-### 安装主题MengD
-</code></pre>
-
-<p>bash
-git clone <a href="https://github.com/lete114/hexo-theme-MengD.git">https://github.com/lete114/hexo-theme-MengD.git</a> themes/MengD &mdash;稳定版
-npm install hexo-theme-mengd &ndash;save &mdash;npm安装主题稳定版</p>
-
-<pre><code>
-**编辑hexo配置文件_config.yml**
-</code></pre>
-
-<p>yaml
-theme: MengD</p>
-
-<pre><code>&gt; **可选插件**
-&gt; ```bash
-&gt; npm install hexo-generator-search --save ---本地搜索
-&gt; ```
-&gt; ```bash
-&gt; npm install hexo-minify --save ---资源压缩(提高博客速度)
-&gt; ```
-
-### 启动Hexo
-**生成静态页面**
-</code></pre>
-
-<p>bash
-hexo g</p>
-
-<pre><code>
-**启动hexo-server**
-</code></pre>
-
-<p>bash
-npm install hexo-server &ndash;save
-hexo server
-```</p>
-</blockquote>
-
-<h3>参考文献</h3>
-
-<p><a href="https://hexo.io/zh-cn/docs/">Hexo官方文档</a>
-<a href="https://www.jianshu.com/p/6ae883f9291c">使用Hexo+服务器搭建个人博客</a>
-<a href="https://www.jianshu.com/p/e7c58f57f60e">hexo初探&mdash;让写作飞起来</a>
-<a href="https://mengd.js.org/">MengD</a></p>
 
     </div>
 </body>
