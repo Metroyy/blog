@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -60,7 +61,7 @@ func main() {
 	}
 
 	//计算标签,数量
-	tagCount, uniqueTags := CountTags(configs)
+	uniqueTags, tagsname := CountTags(configs)
 
 	//读取模板html文件
 	tmpls := template.Must(template.ParseGlob("sources/templates/*.html"))
@@ -74,7 +75,8 @@ func main() {
 	data := struct {
 		ConfigDict     []Config
 		MdCount        int
-		TagCount       int
+		TagsCount      int
+		TagNames       []string
 		TagsInfo       map[string]int
 		Archive_Year   []int
 		Archive_MDInfo [][]string
@@ -82,14 +84,16 @@ func main() {
 		ConfigDict: configs,
 		// 统计 sources/articles 文件夹下的 Markdown 文件数量
 		MdCount:        mdCount,
-		TagCount:       tagCount,
+		TagsCount:      len(tagsname),
+		TagNames:       tagsname,
 		TagsInfo:       uniqueTags,
 		Archive_Year:   uniqueYears,
 		Archive_MDInfo: ExtArcInfo(uniqueYears),
 	}
 	// fmt.Println(data.Archive_MDInfo)
 	//检查年份文件夹，如果没有则创建各个年份的文件夹
-	MkdirYears(data.Archive_Year)
+	Mkdir(data.Archive_Year)
+	// , data.TagsInfo
 
 	// 生成 HTML 文件
 	CreateHTML(tmpls, data, uniquefiles, yearsList)
@@ -98,6 +102,10 @@ func main() {
 	http.HandleFunc("/Search", func(w http.ResponseWriter, r *http.Request) {
 		// 在匿名函数中调用Search函数并传递data结构体的值
 		Search(w, r, data.ConfigDict)
+	})
+	http.HandleFunc("/Gentags", func(w http.ResponseWriter, r *http.Request) {
+		// 在匿名函数中调用Search函数并传递data结构体的值
+		Gentags(w, r, data, tmpls, uniqueTags)
 	})
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
@@ -202,27 +210,28 @@ func CountMarkdownFiles() int {
 }
 
 // 统计md文档的标签数量，循环所有标签
-func CountTags(configs []Config) (count int, uniqueTags map[string]int) {
+func CountTags(configs []Config) (uniqueTags map[string]int, tagname []string) {
 	uniqueTags = make(map[string]int)
 	for i := 0; i < len(configs); i++ {
-		count += len(configs[i].Tags)
 		for _, tag := range configs[i].Tags {
 			tag = strings.TrimSpace(tag)
 			if _, ok := uniqueTags[tag]; !ok {
 				uniqueTags[tag] = 1
+				tagname = append(tagname, tag)
 			} else {
 				uniqueTags[tag]++
 			}
 		}
 	}
-	return count, uniqueTags
+	return uniqueTags, tagname
 }
 
 // 生成 HTML 文件
 func CreateHTML(tmpls *template.Template, data struct {
 	ConfigDict     []Config
 	MdCount        int
-	TagCount       int
+	TagsCount      int
+	TagNames       []string
 	TagsInfo       map[string]int
 	Archive_Year   []int
 	Archive_MDInfo [][]string
@@ -238,6 +247,18 @@ func CreateHTML(tmpls *template.Template, data struct {
 			log.Fatalf("替换"+uniquefiles[i]+"模板中的占位符失败: %v", errs)
 		}
 	}
+
+	// //创建标签对应的HTML文件
+	// for i := 0; i < len(data.TagName); i++ {
+	// 	out_tag, err := os.Create("sources/articles/tagpage/" + data.TagName[i] + "/" + data.TagName[i] + "_tagpage.html")
+	// 	if err != nil {
+	// 		log.Fatalf("创建"+data.TagName[i]+"标签页输出文件失败: %v", err)
+	// 	}
+	// 	errs := tmpls.ExecuteTemplate(out_tag, "tag.html", data.TagName[i])
+	// 	if errs != nil {
+	// 		log.Fatalf("替换"+data.TagName[i]+"标签模板中的占位符失败: %v", errs)
+	// 	}
+	// }
 
 	// 创建输出文件并将模板引擎替换后的结果
 	out_home, err := os.Create("sources/articles/home.html")
@@ -255,10 +276,10 @@ func CreateHTML(tmpls *template.Template, data struct {
 		log.Fatalf("创建tags输出文件失败: %v", err)
 	}
 
-	out_tag, err := os.Create("sources/articles/tag.html")
-	if err != nil {
-		log.Fatalf("创建tag输出文件失败: %v", err)
-	}
+	// out_tag, err := os.Create("sources/articles/tag.html")
+	// if err != nil {
+	// 	log.Fatalf("创建tag输出文件失败: %v", err)
+	// }
 
 	errs := tmpls.ExecuteTemplate(out_home, "home.html", data)
 	if errs != nil {
@@ -275,10 +296,10 @@ func CreateHTML(tmpls *template.Template, data struct {
 		log.Fatalf("替换tags模板中的占位符失败: %v", err)
 	}
 
-	err = tmpls.ExecuteTemplate(out_tag, "tag.html", data)
-	if err != nil {
-		log.Fatalf("替换tag模板中的占位符失败: %v", err)
-	}
+	// err = tmpls.ExecuteTemplate(out_tag, "tag.html", data)
+	// if err != nil {
+	// 	log.Fatalf("替换tag模板中的占位符失败: %v", err)
+	// }
 	fmt.Println("执行完成")
 }
 
@@ -319,8 +340,10 @@ func ExtArchiveTime(configs []Config) (yearsList []int, uniqueYears []int, err e
 	return yearsList, uniqueYears, nil
 }
 
-// 检查年份文件夹，如果没有则创建各个年份的文件夹
-func MkdirYears(years []int) error {
+// 检查文件夹，如果没有则创建各个年份和标签的的文件夹
+func Mkdir(years []int) error {
+	// , tags map[string]int
+	//年份文件夹
 	const dirPerm = os.ModePerm
 	for i := 0; i < len(years); i++ {
 		dirExists, err := isDirExist(years[i])
@@ -330,18 +353,47 @@ func MkdirYears(years []int) error {
 		if !dirExists {
 			folder := strconv.Itoa(years[i])
 			if err = os.MkdirAll("sources/articles/"+folder, dirPerm); err != nil {
-				return fmt.Errorf("创建文件夹%s失败: %v", folder, err)
+				return fmt.Errorf("创建年份文件夹%s失败: %v", folder, err)
 			}
 		}
 	}
+
+	// //标签文件夹
+	// //创建md对应的HTML文件
+	// for k := range tags {
+	// 	tag := k
+	// 	//tag去过重，直接检查是否有文件夹，没有就创建
+	// 	dirExists, err := isDirExist(tag)
+	// 	if err != nil {
+	// 		return fmt.Errorf("检查标签文件夹%s失败: %v", tag, err)
+	// 	}
+	// 	if !dirExists {
+	// 		if err = os.MkdirAll("sources/articles/tagpage/"+tag, dirPerm); err != nil {
+	// 			return fmt.Errorf("创建标签文件夹%s失败: %v", tag, err)
+	// 		}
+	// 	}
+	// }
 	return nil
 }
 
-// 检查年份文件夹是否重复
-func isDirExist(year int) (bool, error) {
-	//判断是否有文件
-	path := strconv.Itoa(year)
-	info, err := os.Stat(path)
+// 检查年份和标签文件夹是否重复
+func isDirExist(input interface{}) (bool, error) {
+	var info fs.FileInfo
+	var err error
+	//判断输入类型
+	switch in := input.(type) {
+	case int:
+		//判断年份
+		path := strconv.Itoa(in)
+		info, err = os.Stat("sources/articles/" + path)
+	case string:
+		//判断标签
+		path := in
+		info, err = os.Stat("sources/articles/tagpage/" + path)
+	default:
+		return false, fmt.Errorf("不支持的输入类型:%T", input)
+	}
+
 	if err != nil {
 		if os.IsNotExist(err) {
 			return false, nil
@@ -350,7 +402,7 @@ func isDirExist(year int) (bool, error) {
 	}
 	//判断是否是目录
 	if !info.IsDir() {
-		return false, fmt.Errorf("%s 存在但不是目录", path)
+		return false, fmt.Errorf("存在但不是目录")
 	}
 	return true, nil
 }
@@ -398,6 +450,73 @@ func Search(w http.ResponseWriter, r *http.Request, data []Config) {
 	}
 
 	jsonResponse, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	// 设置正确的响应头
+	w.Header().Set("Content-Type", "application/json")
+
+	// 返回 JSON 字符串
+	w.Write(jsonResponse)
+}
+
+// 根据前端传过来的tag动态生成页面并返回超链接
+func Gentags(w http.ResponseWriter, r *http.Request, data struct {
+	ConfigDict     []Config
+	MdCount        int
+	TagsCount      int
+	TagNames       []string
+	TagsInfo       map[string]int
+	Archive_Year   []int
+	Archive_MDInfo [][]string
+}, tmpls *template.Template, uniqueTags map[string]int) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	// 针对预检请求进行处理
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+	type TemplateData struct {
+		Configs  []Config
+		Tagname  string
+		TagCount int
+	}
+
+	var configs []Config
+	tagname := strings.TrimSpace(r.FormValue("tagname"))
+	for i := 0; i < len(data.ConfigDict); i++ {
+		for j := 0; j < len(data.ConfigDict[i].Tags); j++ {
+			if strings.Contains(data.ConfigDict[i].Tags[j], tagname) {
+				configs = append(configs, data.ConfigDict[i])
+			}
+		}
+	}
+
+	var tagcount int
+	for key, value := range uniqueTags {
+		if tagname == key {
+			tagcount = value
+		}
+	}
+
+	datas := TemplateData{
+		Configs:  configs,
+		Tagname:  tagname,
+		TagCount: tagcount,
+	}
+	//创建输出文件并将模板引擎替换后的结果
+	out_tag, err := os.Create("sources/articles/tag.html")
+	if err != nil {
+		log.Fatalf("创建home输出文件失败: %v", err)
+	}
+	errs := tmpls.ExecuteTemplate(out_tag, "tag.html", datas)
+	if errs != nil {
+		log.Fatalf("替换home模板中的占位符失败: %v", errs)
+	}
+	jsonResponse, err := json.Marshal(datas)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return

@@ -2,11 +2,11 @@
 <html>
 
 <head>
-  {{if gt (len .ConfigDict) 0}}
-  {{ $firstConfig := index .ConfigDict 0 }}
+  {{if gt (len .Configs) 0}}
+  {{ $firstConfig := index .Configs 0 }}
   <title>{{ $firstConfig.Home_Title }}</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../../sources/css/home_style.css">
+  <link rel="stylesheet" href="../css/home_style.css">
 </head>
 
 <body>
@@ -36,19 +36,34 @@
     <div class="row">
       <div class="col">
         <img src="{{$firstConfig.Home_Author_img}}" alt="">
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <span>{{$firstConfig.Home_Author}}</span>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <span>{{$firstConfig.Home_Self_introduction}}</span>
         {{end}}
       </div>
     </div>
-</div>
+    <div class="row">
+      <div class="col">
+        <span>{{.Tagname}}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span>{{.TagCount}}篇文章</span>
+      </div>
+    </div>
+  </div>
+  {{range .Configs}}
+  <div class="container" id="body">
+    <span><a href="{{.MDPath}}">{{.Title}}</a></span>
+    <img src="{{.Img}}" alt="">
+    <p class="body_articles">{{.Desc}}</p>
+    <span class="body_articles_time">{{.Time}}</span>
+    {{ range $tag := .Tags }}
+    <span class="body_articles_tag">
+      <a onclick="setTimeout(() => {location.href='tag.html'}, 500)">{{ $tag }}</a>
+    </span>
+    {{end}}
+  </div>
+  {{end}}
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../js/tag.js"></script>
