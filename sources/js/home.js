@@ -1,7 +1,7 @@
 $('#search').on('input', function () {
     var input = $(this).val()
     $.ajax({
-        url: 'http://localhost:8080/Search',
+        url: 'http://localhost:4005/Search',
         method: 'POST',
         data: { input: input },
         success: function (response) {

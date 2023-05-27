@@ -4,7 +4,7 @@ $(".tag-item").on('click', function () {
     tagname = tagname.trim()
     console.log(tagname)
     $.ajax({
-        url: 'http://localhost:8080/Gentags',
+        url: 'http://localhost:4005/Gentags',
         method: 'POST',
         data: { tagname: tagname },
         success: function (response) {

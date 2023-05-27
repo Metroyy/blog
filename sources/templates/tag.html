@@ -58,7 +58,7 @@
     <span class="body_articles_time">{{.Time}}</span>
     {{ range $tag := .Tags }}
     <span class="body_articles_tag">
-      <a onclick="setTimeout(() => {location.href='tag.html'}, 500)">{{ $tag }}</a>
+      <a onclick="setTimeout(() => {location.href='tag.html'}, 1000)">{{ $tag }}</a>
     </span>
     {{end}}
   </div>

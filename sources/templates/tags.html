@@ -55,7 +55,7 @@
         <ul class="tag-list">
             {{range $tag, $count := .TagsInfo}}
             <li class="tag-item">
-                <a class="tag-name" onclick="setTimeout(() => {location.href='tag.html'}, 500)">{{$tag}}<span class="tag-count"> ({{$count}})</span></a>
+                <a class="tag-name" onclick="setTimeout(() => {location.href='tag.html'}, 1000)">{{$tag}}<span class="tag-count"> ({{$count}})</span></a>
             </li>
             {{end}}
         </ul>
