@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -59,6 +60,9 @@ func main() {
 	for i := 0; i < len(configs); i++ {
 		configs[i].MDPath = strconv.Itoa(yearsList[i]) + "/" + configs[i].MDPath + ".html"
 	}
+
+	//将数据按照时间顺序排序
+	sortConfigs(configs)
 
 	//计算标签,数量
 	uniqueTags, tagsname := CountTags(configs)
@@ -461,7 +465,7 @@ func Search(w http.ResponseWriter, r *http.Request, data []Config) {
 	w.Write(jsonResponse)
 }
 
-// 根据前端传过来的tag动态生成页面并返回超链接
+// tag页面动态生成
 func Gentags(w http.ResponseWriter, r *http.Request, data struct {
 	ConfigDict     []Config
 	MdCount        int
@@ -526,4 +530,19 @@ func Gentags(w http.ResponseWriter, r *http.Request, data struct {
 
 	// 返回 JSON 字符串
 	w.Write(jsonResponse)
+}
+
+// 数据按时间排序
+func sortConfigs(configs []Config) {
+	sort.Slice(configs, func(i, j int) bool {
+		num1, err := strconv.Atoi(strings.ReplaceAll(configs[i].Time, "-", ""))
+		if err != nil {
+			fmt.Println("无法将字符串转换为整数")
+		}
+		num2, err := strconv.Atoi(strings.ReplaceAll(configs[j].Time, "-", ""))
+		if err != nil {
+			fmt.Println("无法将字符串转换为整数")
+		}
+		return num2 < num1
+	})
 }

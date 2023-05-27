@@ -26,3 +26,7 @@
 .tag-name{
     padding: 5px 7px;
 }
+
+.tag-item:hover{
+    cursor: pointer;
+}

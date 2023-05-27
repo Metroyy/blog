@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hexo反向代理配置</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
+    <link rel="stylesheet" href="../../css/home_style.css">
+    <link rel="stylesheet" href="../../css/index_style.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" id="head">
+            <div class="col" id="logo">
+                <a href="../home.html">
+                    <img src="../../img/logo.png" alt="">
+                    <span>陈可微</span>
+                </a>
+            </div>
+
+            <div class="col" id="navigation">
+                <a href="../archive.html">
+                    <span>归档</span>
+                </a>
+                <a href="tags.html">
+                    <span>标签</span>
+                </a>
+                <a href="">
+                    <span>订阅</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>Hexo反向代理配置</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="../../img/logo.png" alt="">
+                <span>陈可微</span>
+                <span class="body_articles_tag"><a href="">[Hexo 反向代理]</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <img src="" alt="">
+    </div>
+    <div class="container">
+        <p><font color=gray><strong>Nginx配置</strong></font></p>
+
+<pre><code class="language-yaml">    location / {
+        proxy_pass http://127.0.0.1:端口;
+    }
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp3|wma|js|css)${
+        proxy_pass http://127.0.0.1:端口;
+        expires      30d;
+    }
+	
+    location ~ .*\.(js|css)${
+        proxy_pass http://127.0.0.1:端口;
+        expires      12h;
+    }
+</code></pre>
+
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script>
+    window.onload = function () {
+        Prism.highlightAll();
+    }
+</script>

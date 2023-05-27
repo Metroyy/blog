@@ -1,55 +1,9 @@
 ---
-title: "VGPU配置"
-desc: "VGPU配置"
-img: "https://cdn.gamma.app/cdn-cgi/image/quality=80,fit=scale-down,onerror=redirect,width=500/a6uyzivr086smdy/bcde7aa37d204865b27a758dcb271fa6/original/u-4010697962-4143975424-fm-253-app-120-f-JPEG-fmt-auto-q-75.jpg"
-time: "2022-04-12"
-tags: "VGPU,test"
+title: VGPU配置
+desc: VGPU配置
+time: 2023-04-12
+tags: VGPU
 ---
-
-测试纯文字：
-测试
-
-测试标题###：
-### 测试
-
-测试标题##：
-## 测试
-
-测试标题#：
-# 测试
-
-测试代码块： 
-```yaml
-yum install
-```
-
-测试本地图片：
-![img](../../img/title.png)
-
-测试本地图片：
-[img](https://tse2-mm.cn.bing.net/th/id/OIP-C.sM4IE-0sfN9ICstIElrXNQHaF4?pid=ImgDet&rs=1)
-
-测试引用：
-> 测试
-
-测试加粗**：
-**测试**
-
-测试无序列表-：
-- 测试1
-- 测试2
-
-测试有序列表1.：
-1. 测试1
-2. 测试2
-
-测试斜体*：
-*测试*
-
-测试斜体_：
-_测试
-
-
 
 
 ### esxi安装vgpu驱动
@@ -67,7 +21,7 @@ _测试
 ![img](../../img/vgpu/5.png)
 
 **安装驱动**
-```yaml
+```bash
 esxcli software vib install -v (vib文件路径) ---安装驱动
 esxcli software vib update -v (vib文件路径) ---更新驱动
 ```

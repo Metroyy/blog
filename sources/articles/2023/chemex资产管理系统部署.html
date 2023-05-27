@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Git仓库使用配置</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
+    <link rel="stylesheet" href="../../css/home_style.css">
+    <link rel="stylesheet" href="../../css/index_style.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" id="head">
+            <div class="col" id="logo">
+                <a href="../home.html">
+                    <img src="../../img/logo.png" alt="">
+                    <span>陈可微</span>
+                </a>
+            </div>
+
+            <div class="col" id="navigation">
+                <a href="../archive.html">
+                    <span>归档</span>
+                </a>
+                <a href="tags.html">
+                    <span>标签</span>
+                </a>
+                <a href="">
+                    <span>订阅</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>Git仓库使用配置</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="../../img/logo.png" alt="">
+                <span>陈可微</span>
+                <span class="body_articles_tag"><a href="">[Git]</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <img src="" alt="">
+    </div>
+    <div class="container">
+        <p><strong>配置Git</strong></p>
+
+<pre><code class="language-bash">ssh-keygen -t rsa -C &quot;yikotee@mail.nankai.edu.cn&quot; ---本地创建ssh key
+</code></pre>
+
+<p><strong>将生成的key添加进GitHub的Account Setting中</strong>
+<img src="../../img/git/1.png" alt="img" /></p>
+
+<p><strong>验证是否添加成功</strong></p>
+
+<pre><code class="language-bash">ssh -T git@github.com
+</code></pre>
+
+<p><strong>设置commit username和email</strong></p>
+
+<pre><code class="language-bash">git config --global user.name &quot;lch&quot;
+git config --global user.email &quot;yikotee@mail.nankai.edu.cn&quot;
+</code></pre>
+
+<p><strong>添加远程地址</strong></p>
+
+<pre><code class="language-bash">git remote add origin https://github.com/yikotee/Andromeda.git
+</code></pre>
+
+<p><strong>本地仓库上传到远程仓库</strong></p>
+
+<pre><code class="language-bash">git init ---初始化本地仓库
+git add --all ---将代码添加到本地仓库
+git status ---查看本地仓库状态
+git commit -m &quot;index第一次提交&quot; ---项目提交说明
+git push -u origin master ---把本地仓库代码推送到远程仓库
+</code></pre>
+
+<p><strong>删除远程仓库代码</strong></p>
+
+<pre><code class="language-bash">git pull origin master ---将远程仓库代码拉下来
+dir ---查看都有哪些文件
+git rm -r --cached index.html ---删除index.html文件
+git commit -m &quot;删除了index.html&quot; ---提交操作说明
+git push -u origin master ---提交本次更新
+</code></pre>
+
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script>
+    window.onload = function () {
+        Prism.highlightAll();
+    }
+</script>

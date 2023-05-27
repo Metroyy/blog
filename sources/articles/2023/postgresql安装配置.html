@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MAC完全移除PostgreSQL</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
+    <link rel="stylesheet" href="../../css/home_style.css">
+    <link rel="stylesheet" href="../../css/index_style.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" id="head">
+            <div class="col" id="logo">
+                <a href="../home.html">
+                    <img src="../../img/logo.png" alt="">
+                    <span>陈可微</span>
+                </a>
+            </div>
+
+            <div class="col" id="navigation">
+                <a href="../archive.html">
+                    <span>归档</span>
+                </a>
+                <a href="tags.html">
+                    <span>标签</span>
+                </a>
+                <a href="">
+                    <span>订阅</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>MAC完全移除PostgreSQL</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="../../img/logo.png" alt="">
+                <span>陈可微</span>
+                <span class="body_articles_tag"><a href="">[MAC PostgreSQL]</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <img src="" alt="">
+    </div>
+    <div class="container">
+        <p><strong>执行PostgreSQL卸载程序（可能提示输入密码）</strong></p>
+
+<pre><code class="language-bash">open /Library/PostgreSQL/15/uninstall-postgresql.app
+</code></pre>
+
+<p><strong>删除PostgreSQL文件夹</strong></p>
+
+<pre><code class="language-bash"> sudo rm -rf /Library/PostgreSQL
+</code></pre>
+
+<p><strong>删除配置文件</strong></p>
+
+<pre><code class="language-bash"> sudo rm /etc/postgres-reg.in
+</code></pre>
+
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script>
+    window.onload = function () {
+        Prism.highlightAll();
+    }
+</script>

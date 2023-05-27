@@ -1,152 +1,156 @@
 body,
-  html {
-    padding: 0px;
-    margin: 0px;
-  }
+html {
+  padding: 0px;
+  margin: 0px;
+}
 
-  a {
-    text-decoration: none;
-  }
+a {
+  text-decoration: none;
+}
 
-  span {
-    color: #a1b2b4;
-    font-weight: 700;
-    font-size: 18px;
-  }
+span {
+  color: #a1b2b4;
+  font-weight: 700;
+  font-size: 18px;
+}
 
-  #logo {
-    display: flex;
-    justify-content: flex-start;
-  }
+#logo {
+  display: flex;
+  justify-content: flex-start;
+}
 
-  #navigation {
-    display: flex;
-    justify-content: flex-end;
-  }
+#navigation {
+  display: flex;
+  justify-content: flex-end;
+}
 
-  #navigation>a {
-    margin-right: 15px;
-  }
+#navigation>a {
+  margin-right: 15px;
+}
 
-  #navigation>a:last-child {
-    margin-right: 0px;
-  }
+#navigation>a:last-child {
+  margin-right: 0px;
+}
 
-  #logo>a>img {
-    width: 35px;
-    height: 35px;
-    margin-right: 10px;
-    border-radius: 100%;
-  }
+#logo>a>img {
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  border-radius: 100%;
+}
 
-  .container-fluid {
-    padding: 0px;
-  }
+.container-fluid {
+  padding: 0px;
+}
 
-  #head {
-    padding: 15px;
-    height: auto;
-  }
+#head {
+  padding: 15px;
+  height: auto;
+}
 
-  #introduction {
-    position: relative;
-    top: 50px;
-  }
+#introduction {
+  position: relative;
+  top: 50px;
+}
 
-  #introduction>.row>.col {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+#introduction>.row>.col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  #introduction>div>div>img {
-    height: 80px;
-    width: 80px;
-    border-radius: 100%;
-  }
+#introduction>div>div>img {
+  height: 80px;
+  width: 80px;
+  border-radius: 100%;
+}
 
-  #introduction>div:nth-child(2)>div>span {
-    margin-top: 30px;
-    color: rgb(41, 56, 70);
-    font-size: 32px;
-    font-weight: 700;
-  }
+#introduction>div:nth-child(2)>div>span {
+  margin-top: 30px;
+  color: rgb(41, 56, 70);
+  font-size: 32px;
+  font-weight: 700;
+}
 
-  #introduction>div:nth-child(3)>div>span {
-    font-size: 16px;
-    color: #a1b2b4;
-    font-style: italic;
-    margin-top: 10px;
-    font-weight: 400;
-  }
+#introduction>div:nth-child(3)>div>span {
+  font-size: 16px;
+  color: #a1b2b4;
+  font-style: italic;
+  margin-top: 10px;
+  font-weight: 400;
+}
 
-  #introduction>div:nth-child(4)>div {
-    margin-top: 40px;
-  }
+#introduction>div:nth-child(4)>div {
+  margin-top: 40px;
+}
 
-  #search {
-    flex: none;
-    width: 200px;
-  }
+#search {
+  flex: none;
+  width: 200px;
+}
 
-  .input-group {
-    display: flex;
-    justify-content: center;
-  }
+.input-group {
+  display: flex;
+  justify-content: center;
+}
 
-  #body{
-    padding: 0px;
-    position: relative;
-    top: 100px;
-    margin-top: 50px;
-    width: 60%;
-  }
+#body {
+  padding: 0px;
+  position: relative;
+  top: 100px;
+  margin-top: 50px;
+  width: 60%;
+}
 
-  #body>img{
-    display: block;
-    margin: 0px auto;
-    width: 100%;
-    border-radius: 8px;
-    object-fit: cover;
-  }
+#body>img {
+  display: block;
+  margin: 0px auto;
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
 
-  #body>span:nth-child(1)>a{
-    font-size: 26px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: #293846;
-  }
+#body>span:nth-child(1)>a {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #293846;
+}
 
-  .body_articles{
-    width: 100%;
-    height: auto;
-    font-size: 16px;
-    margin-bottom: 5px;
-    margin-top: 10px;
-    color: #293846;
-    font-weight: normal;
-  }
+.body_articles {
+  width: 100%;
+  height: auto;
+  font-size: 16px;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  color: #293846;
+  font-weight: normal;
+}
 
-  .body_articles_time{
-    font-size: 14px;
-    font-weight: normal;
-  }
+.body_articles_time {
+  font-size: 14px;
+  font-weight: normal;
+}
 
-  .body_articles_tag>a{
-    float: right;
-    font-size: 14px;
-    font-weight: normal;
-    margin-right: 5px;
-    color: #a1b2b4;
-  }
+.body_articles_tag>a {
+  float: right;
+  font-size: 14px;
+  font-weight: normal;
+  margin-right: 5px;
+  color: #a1b2b4;
+}
 
-  #search-results{
-    display: none;
-    border-radius: 10px;
-    position: absolute;
-    top: 275px;
-    width: 240px;
-    max-height: 100px;
-    text-align: center;
-    background-color: aqua;
-  }
+#search-results {
+  display: none;
+  border-radius: 10px;
+  position: absolute;
+  top: 275px;
+  width: 240px;
+  max-height: 100px;
+  text-align: center;
+  background-color: aqua;
+}
+
+.body_articles_tag {
+  cursor: pointer;
+}

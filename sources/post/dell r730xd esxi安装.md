@@ -1,8 +1,8 @@
 ---
-title: "DELL R730XD安装ESXI"
-desc: "DELL R730XD安装ESXI"
-time: "2023-03-15"
-tags: "R730XD,ESXI"
+title: DELL R730XD安装ESXI
+desc: DELL R730XD安装ESXI
+time: 2023-03-15
+tags: R730XD,ESXI
 ---
 
 ### 本机环境

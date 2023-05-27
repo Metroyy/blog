@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ubuntu配置静态地址</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
+    <link rel="stylesheet" href="../../css/home_style.css">
+    <link rel="stylesheet" href="../../css/index_style.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" id="head">
+            <div class="col" id="logo">
+                <a href="../home.html">
+                    <img src="../../img/logo.png" alt="">
+                    <span>陈可微</span>
+                </a>
+            </div>
+
+            <div class="col" id="navigation">
+                <a href="../archive.html">
+                    <span>归档</span>
+                </a>
+                <a href="tags.html">
+                    <span>标签</span>
+                </a>
+                <a href="">
+                    <span>订阅</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>Ubuntu配置静态地址</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="../../img/logo.png" alt="">
+                <span>陈可微</span>
+                <span class="body_articles_tag"><a href="">[Ubuntu]</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <img src="" alt="">
+    </div>
+    <div class="container">
+        <p><strong>Ubuntu自17.10后，放弃在/etc/network/interfaces里配置IP</strong>
+<strong>改为/etc/netplan/00-install-config.yaml</strong>
+<strong>查看网卡配置信息</strong></p>
+
+<pre><code class="language-yaml">ifconfig
+</code></pre>
+
+<p><strong>修改配置文件</strong></p>
+
+<pre><code class="language-yaml">vi /etc/netplan/00-install-config.yaml
+</code></pre>
+
+<pre><code class="language-yaml">network:
+  ethernets:
+    ens160:
+      addresses:
+      - 10.0.2.20/24 ---静态IP地址和掩码
+      gateway4: 10.0.2.254 ---网关地址
+      nameservers:
+        addresses:
+        - 114.114.114.114,8.8.8.8 ---DNS服务器地址，多个DNS用英文逗号隔开
+        search: []
+  version: 2
+</code></pre>
+
+<p><strong>使配置生效</strong></p>
+
+<pre><code class="language-yaml">sudo netplan apply
+</code></pre>
+
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script>
+    window.onload = function () {
+        Prism.highlightAll();
+    }
+</script>

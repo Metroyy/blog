@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>iKev2搭建</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs/themes/prism.css" />
+    <link rel="stylesheet" href="../../css/home_style.css">
+    <link rel="stylesheet" href="../../css/index_style.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row" id="head">
+            <div class="col" id="logo">
+                <a href="../home.html">
+                    <img src="../../img/logo.png" alt="">
+                    <span>陈可微</span>
+                </a>
+            </div>
+
+            <div class="col" id="navigation">
+                <a href="../archive.html">
+                    <span>归档</span>
+                </a>
+                <a href="tags.html">
+                    <span>标签</span>
+                </a>
+                <a href="">
+                    <span>订阅</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>iKev2搭建</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <img src="../../img/logo.png" alt="">
+                <span>陈可微</span>
+                <span class="body_articles_tag"><a href="">[iKev2]</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <img src="" alt="">
+    </div>
+    <div class="container">
+        <h3>安装</h3>
+
+<p><strong>系统环境</strong>
+<code>Ubuntu 20.0.4</code></p>
+
+<p><strong>更新源</strong></p>
+
+<pre><code class="language-bash"> sudo apt-get update
+</code></pre>
+
+<p><strong>拉取源代码</strong></p>
+
+<pre><code class="language-bash"> wget &lt;https://get.vpnsetup.net&gt; -O vpn.sh &amp;&amp; sudo sh vpn.sh
+</code></pre>
+
+<h3><strong>命令</strong></h3>
+
+<p><strong>列出已有的客户端</strong></p>
+
+<pre><code class="language-bash"> sudo ikev2.sh --listclients
+</code></pre>
+
+<p><strong>添加客户端证书</strong></p>
+
+<pre><code class="language-bash"> sudo ikev2.sh --addclient client name
+</code></pre>
+
+<p><strong>导出已有的客户端配置</strong></p>
+
+<pre><code class="language-bash"> sudo ikev2.sh --exportclient client name
+</code></pre>
+
+<p><strong>吊销客户端证书</strong></p>
+
+<pre><code class="language-bash"> sudo ikev2.sh --revokeclient client name
+</code></pre>
+
+<p><strong>删除客户端</strong></p>
+
+<pre><code class="language-bash"> sudo ikev2.sh --deleteclient client name
+</code></pre>
+
+<p><strong>重启IPsec服务</strong></p>
+
+<pre><code class="language-bash"> service ipsec restart service xl2tpd restart
+</code></pre>
+
+<p><strong>检查 IPsec VPN 服务器状态</strong></p>
+
+<pre><code class="language-bash"> ipsec status
+</code></pre>
+
+<p><strong>查看当前已建立的 VPN 连接</strong></p>
+
+<pre><code class="language-bash"> ipsec trafficstatus
+</code></pre>
+
+<p><strong>移除iKev2</strong></p>
+
+<pre><code class="language-bash"> sudo ikev2.sh --removeikev2
+</code></pre>
+
+<p><strong>检查 Libreswan (IPsec) 和 xl2tpd 日志是否有错误</strong></p>
+
+<pre><code class="language-bash">grep pluto /var/log/auth.log ---Ubuntu &amp; Debian
+grep xl2tpd /var/log/syslog
+
+grep pluto /var/log/secure ---CentOS/RHEL, Rocky Linux, AlmaLinux, Oracle Linux &amp; Amazon Linux 2
+grep xl2tpd /var/log/messages
+
+grep pluto /var/log/messages ---Alpine Linux
+grep xl2tpd /var/log/messages
+</code></pre>
+
+<h3>参考文献</h3>
+
+<p><a href="https://github.com/hwdsl2/setup-ipsec-vpn">ikev2</a>
+<a href="https://github.com/hwdsl2/setup-ipsec-vpn/blob/master/docs/clients-zh.md#%E6%A3%80%E6%9F%A5%E6%97%A5%E5%BF%97%E5%8F%8A-vpn-%E7%8A%B6%E6%80%81">错误码对照</a></p>
+
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/prism.js"></script>
+<script>
+    window.onload = function () {
+        Prism.highlightAll();
+    }
+</script>
