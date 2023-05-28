@@ -1,7 +1,7 @@
 .container {
     padding-top: 60px;
     padding-bottom: 60px;
-    max-width: 60%;
+    max-width: 90%;
 }
 
 .container p {
@@ -16,7 +16,7 @@
     align-items: center;
 }
 
-.container>div:nth-child(2)>div>img {
+.container>div:nth-child(2)>div>a>img {
     width: 22px;
     height: 22px;
     margin-right: 10px;
@@ -27,7 +27,7 @@
     color: #293846;
     font-size: 14px;
     margin-right: 10px;
-    font-weight: normal;
+    font-weight: normal; 
 }
 
 .container:nth-child(3) {
@@ -43,7 +43,7 @@
 }
 
 .container:nth-child(4) {
-    width: 60%;
+    width: 90%;
     height: auto;
 }
 
@@ -91,4 +91,9 @@
     font-weight: normal;
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+.body_articles_tag>a{
+    text-decoration: none;
+    color: black;
 }

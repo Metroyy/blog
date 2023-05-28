@@ -6,7 +6,6 @@ $('#search').on('input', function () {
         data: { input: input },
         success: function (response) {
             if (input != "") {
-                $('#search-results').css('display', 'block');
                 var resultHTML = "";
                 for (var i = 0; i < response.length; i++) {
                     var path = response[i].substring(5);
@@ -14,8 +13,6 @@ $('#search').on('input', function () {
                     resultHTML += "<a target='_blank' href='" + response[i] + "'>" + path + "</a><br>";
                 }
                 $('#search-results').html(resultHTML);
-            }else {
-                $('#search-results').css('display', 'none');
             }
         }
     })
