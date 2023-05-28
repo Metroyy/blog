@@ -100,7 +100,8 @@ func main() {
 	// , data.TagsInfo
 
 	// 生成 HTML 文件
-	CreateHTML(tmpls, data, uniquefiles, yearsList)
+	CreateHTML(tmpls, data)
+	CreateMdHTML(tmpls, data, uniquefiles, yearsList)
 
 	// //搜索路由
 	http.HandleFunc("/Search", func(w http.ResponseWriter, r *http.Request) {
@@ -230,7 +231,7 @@ func CountTags(configs []Config) (uniqueTags map[string]int, tagname []string) {
 	return uniqueTags, tagname
 }
 
-// 生成 HTML 文件
+// 生成 HTML 文件,home,archive,tags
 func CreateHTML(tmpls *template.Template, data struct {
 	ConfigDict     []Config
 	MdCount        int
@@ -239,18 +240,7 @@ func CreateHTML(tmpls *template.Template, data struct {
 	TagsInfo       map[string]int
 	Archive_Year   []int
 	Archive_MDInfo [][]string
-}, uniquefiles []string, yearsList []int) {
-	//创建md对应的HTML文件
-	for i := 0; i < data.MdCount; i++ {
-		out_md, err := os.Create("sources/articles/" + strconv.Itoa(yearsList[i]) + "/" + uniquefiles[i] + ".html")
-		if err != nil {
-			log.Fatalf("创建"+uniquefiles[i]+"输出文件失败: %v", err)
-		}
-		errs := tmpls.ExecuteTemplate(out_md, "index.html", data.ConfigDict[i])
-		if errs != nil {
-			log.Fatalf("替换"+uniquefiles[i]+"模板中的占位符失败: %v", errs)
-		}
-	}
+}) {
 
 	// //创建标签对应的HTML文件
 	// for i := 0; i < len(data.TagName); i++ {
@@ -304,6 +294,29 @@ func CreateHTML(tmpls *template.Template, data struct {
 	// if err != nil {
 	// 	log.Fatalf("替换tag模板中的占位符失败: %v", err)
 	// }
+}
+
+// 创建md对应的HTML文件
+func CreateMdHTML(tmpls *template.Template, data struct {
+	ConfigDict     []Config
+	MdCount        int
+	TagsCount      int
+	TagNames       []string
+	TagsInfo       map[string]int
+	Archive_Year   []int
+	Archive_MDInfo [][]string
+}, uniquefiles []string, yearsList []int) {
+
+	for i := 0; i < data.MdCount; i++ {
+		out_md, err := os.Create("sources/articles/" + strconv.Itoa(yearsList[i]) + "/" + uniquefiles[i] + ".html")
+		if err != nil {
+			log.Fatalf("创建"+uniquefiles[i]+"输出文件失败: %v", err)
+		}
+		errs := tmpls.ExecuteTemplate(out_md, "index.html", data.ConfigDict[i])
+		if errs != nil {
+			log.Fatalf("替换"+uniquefiles[i]+"模板中的占位符失败: %v", errs)
+		}
+	}
 	fmt.Println("执行完成")
 }
 

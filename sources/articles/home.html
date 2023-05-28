@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  
+  <title>我的博客</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../../sources/css/home_style.css">
+</head>
+
+<body>
+  <div class="container-fluid" id="search-div">
+    <input type="text" class="form-control" placeholder="搜索..." aria-label="搜索..." id="search">
+    <div id="search-results"></div>
+  </div>
+  <div class="wc">
+    <div class="container-fluid">
+      <a href="home.html">
+      <img src="../img/logo.png" alt="">
+      
+    </a>
+    </div>
+    <div class="container-fluid">
+      <div class="row" id="head">
+        
+
+        <div class="col" id="navigation">
+          <a href="archive.html">
+            <span><svg t="1685179184504" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="8572" width="200" height="200">
+                <path
+                  d="M170.8 767.6c0 47.2 38.2 85.4 85.4 85.4h512.2c47.1 0 85.4-38.2 85.4-85.4V426.1h-683v341.5z m597.6-512.2H469.6c0-47.2-38.2-85.4-85.4-85.4h-128c-47.1 0-85.4 38.2-85.4 85.4v128.1h683v-42.7c-0.1-47.2-38.3-85.4-85.4-85.4z"
+                  fill="#160202" p-id="8573"></path>
+              </svg></span>
+          </a>
+
+          <a href="tags.html">
+            <span><svg t="1685179222324" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="9564" width="200" height="200">
+                <path
+                  d="M788.48 629.418667c0-17.066667-5.802667-31.744-17.749333-44.714667L421.205333 235.861333c-12.288-12.288-29.354667-22.869333-49.834667-31.744-21.162667-8.874667-39.936-12.970667-57.002667-12.970667L110.933333 191.146667c-17.066667 0-31.744 6.485333-44.032 18.773333-12.288 12.288-18.773333 26.965333-18.773333 44.032l0 202.752c0 17.066667 4.096 36.522667 12.970667 57.002667 8.874667 21.162667 18.773333 37.546667 31.744 49.834667l349.525333 349.525333c12.288 12.288 26.965333 17.749333 44.032 17.749333 17.066667 0 31.744-5.802667 44.714667-17.749333l239.616-239.616C781.994667 661.162667 788.48 646.485333 788.48 629.418667L788.48 629.418667 788.48 629.418667zM248.490667 392.192c-12.288 12.288-26.965333 18.090667-44.032 18.090667-17.066667 0-31.744-5.802667-44.032-18.090667-12.288-12.288-18.090667-26.965333-18.090667-44.032 0-17.066667 5.802667-31.744 18.090667-44.032 12.288-12.288 26.965333-18.090667 44.032-18.090667 17.066667 0 31.744 5.802667 44.032 18.090667C260.778667 316.416 266.24 331.093333 266.24 348.16 267.264 365.568 260.778667 379.904 248.490667 392.192L248.490667 392.192 248.490667 392.192zM958.122667 584.362667 608.597333 235.861333c-12.288-12.288-29.354667-22.869333-49.834667-31.744C537.6 195.242667 518.826667 191.146667 501.76 191.146667l-109.909333 0c17.066667 0 36.522667 4.096 57.002667 12.970667 21.162667 8.874667 37.546667 18.773333 49.834667 31.744l349.525333 348.501333c12.288 12.970667 18.090667 27.648 18.090667 44.714667s-5.802667 31.744-18.090667 44.032l-229.034667 229.717333c9.898667 9.898667 18.773333 17.066667 25.941333 21.845333 7.168 4.778667 17.066667 6.485333 28.672 6.485333 17.066667 0 31.744-5.802667 44.714667-18.090667l239.616-240.298667c12.288-12.288 17.749333-26.965333 17.749333-44.032S970.069333 597.674667 958.122667 584.362667L958.122667 584.362667 958.122667 584.362667zM958.122667 584.362667"
+                  fill="#272636" p-id="9565"></path>
+              </svg></span>
+          </a>
+
+          <a href="https://github.com/Metroyy/blog.git">
+            <svg t="1685179323760" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+              p-id="3112" width="200" height="200">
+              <path
+                d="M960 512c0 97.76-28.704 185.216-85.664 263.264-56.96 78.016-130.496 131.84-220.64 161.856-10.304 1.824-18.368 0.448-22.848-4.032a22.4 22.4 0 0 1-7.2-17.504v-122.88c0-37.632-10.304-65.44-30.464-82.912a409.856 409.856 0 0 0 59.616-10.368 222.752 222.752 0 0 0 54.72-22.816c18.848-10.784 34.528-23.36 47.104-38.592 12.544-15.232 22.848-35.904 30.912-61.44 8.096-25.568 12.128-54.688 12.128-87.904 0-47.072-15.232-86.976-46.208-120.16 14.368-35.456 13.024-74.912-4.48-118.848-10.752-3.616-26.432-1.344-47.072 6.272s-38.56 16.16-53.824 25.568l-21.984 13.888c-36.32-10.304-73.536-15.232-112.096-15.232s-75.776 4.928-112.096 15.232a444.48 444.48 0 0 0-24.672-15.68c-10.336-6.272-26.464-13.888-48.896-22.432-21.952-8.96-39.008-11.232-50.24-8.064-17.024 43.936-18.368 83.424-4.032 118.848-30.496 33.632-46.176 73.536-46.176 120.608 0 33.216 4.032 62.336 12.128 87.456 8.032 25.12 18.368 45.76 30.496 61.44 12.544 15.68 28.224 28.704 47.072 39.04 18.848 10.304 37.216 17.92 54.72 22.816a409.6 409.6 0 0 0 59.648 10.368c-15.712 13.856-25.12 34.048-28.704 60.064a99.744 99.744 0 0 1-26.464 8.512 178.208 178.208 0 0 1-33.184 2.688c-13.024 0-25.568-4.032-38.144-12.544-12.544-8.512-23.296-20.64-32.256-36.32a97.472 97.472 0 0 0-28.256-30.496c-11.232-8.064-21.088-12.576-28.704-13.92l-11.648-1.792c-8.096 0-13.92 0.928-17.056 2.688-3.136 1.792-4.032 4.032-2.688 6.72s3.136 5.408 5.376 8.096 4.928 4.928 7.616 7.168l4.032 2.688c8.544 4.032 17.056 11.232 25.568 21.984 8.544 10.752 14.368 20.64 18.4 29.6l5.824 13.44c4.928 14.816 13.44 26.912 25.568 35.872 12.096 8.992 25.088 14.816 39.008 17.504 13.888 2.688 27.36 4.032 40.352 4.032s23.776-0.448 32.288-2.24l13.472-2.24c0 14.784 0 32.288 0.416 52.032 0 19.744 0.48 30.496 0.48 31.392a22.624 22.624 0 0 1-7.648 17.472c-4.928 4.48-12.992 5.824-23.296 4.032-90.144-30.048-163.68-83.84-220.64-161.888C92.256 697.216 64 609.312 64 512c0-81.152 20.192-156.064 60.096-224.672s94.176-122.88 163.232-163.232C355.936 84.192 430.816 64 512 64s156.064 20.192 224.672 60.096 122.88 94.176 163.232 163.232C939.808 355.488 960 430.848 960 512"
+                fill="#000000" p-id="3113"></path>
+            </svg>
+          </a>
+
+          <a href="" id="search-icon"  onclick="return false">
+            <span><svg t="1685179444121" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                xmlns="http://www.w3.org/2000/svg" p-id="5939" width="200" height="200">
+                <path
+                  d="M907.815385 840.861538L720.738462 653.784615c42.141538-55.926154 66.953846-125.636923 66.953846-200.861538 0-184.713846-150.055385-334.769231-334.769231-334.769231s-334.769231 150.055385-334.769231 334.769231 150.055385 334.769231 334.769231 334.769231c75.224615 0 144.935385-24.812308 200.861538-66.953846l187.076923 187.076923 66.953847-66.953847zM212.676923 452.923077c0-132.332308 107.913846-240.246154 240.246154-240.246154s240.246154 107.913846 240.246154 240.246154-107.913846 240.246154-240.246154 240.246154-240.246154-107.913846-240.246154-240.246154z"
+                  fill="#333333" p-id="5940"></path>
+              </svg></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    
+  
+    <div class="container" id="body">
+      <span><a href="2023/VGPU%e9%85%8d%e7%bd%ae.html">VGPU配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">VGPU配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-04-12</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">VGPU</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/vCenter%20Server%e5%ae%89%e8%a3%85.html">vCenter Server安装</a></span>
+      <img src="" alt="">
+      <p class="body_articles">vCenter Server安装</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-04-08</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">vCenter</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/dhcp%e6%9c%8d%e5%8a%a1%e5%99%a8%e9%85%8d%e7%bd%ae.html">dhcp服务器配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">dhcp服务器配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-04-08</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">dhcp</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/AD%e5%9f%9f%e4%b8%bb%e8%be%85%e9%85%8d%e7%bd%ae.html">Active Directory主辅域配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Active Directory主辅域配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-04-07</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">AD域</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/AD%e5%9f%9f%e5%8a%a0%e5%9f%9f.html">Active Directory域加域</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Active Directory域加域</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-04-07</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">AD域</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/Ubuntu%e9%85%8d%e7%bd%ae%e9%9d%99%e6%80%81%e5%9c%b0%e5%9d%80.html">Ubuntu配置静态地址</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Ubuntu配置静态地址</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-04-07</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">Ubuntu</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/git%e4%bb%93%e5%ba%93%e4%bd%bf%e7%94%a8%e9%85%8d%e7%bd%ae.html">Git仓库使用配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Git仓库使用配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-04-05</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">Git</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/%e9%94%ae%e7%9b%98%e5%bf%ab%e6%8d%b7%e9%94%ae.html">键盘快捷键</a></span>
+      <img src="" alt="">
+      <p class="body_articles">键盘快捷键</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-04-05</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">快捷键</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/Jetson%20Nano%e7%83%a7%e5%bd%95%e9%95%9c%e5%83%8f.html">Jetson Nano烧录镜像</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Jetson Nano烧录镜像</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-04-05</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">Jetson Nano</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/s6220-48xS6qxs-h%20%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4.html">S6220-48XS6QXS-H 常用命令</a></span>
+      <img src="" alt="">
+      <p class="body_articles">S6220-48XS6QXS-H 常用命令</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-25</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">S6220</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/ipmi%e9%85%8d%e7%bd%ae.html">IPMI_PCIE检测配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">IPMI_PCIE检测配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-24</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">IPMI</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">PCIE</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/s6220-48xS6qxs-h%20telnet%e9%85%8d%e7%bd%ae.html">S6220-48XS6QXS-H Telnet配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">S6220-48XS6QXS-H Telnet配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-21</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">S6220</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">Telnet</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/s6220-48xS6qxs-h%20%20FTP%e9%85%8d%e7%bd%ae.html">S6220-48XS6QXS-H FTP配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">S6220-48XS6QXS-H FTP配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-21</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">S6220</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">FTP</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/eg3220%e7%ad%96%e7%95%a5%e8%b7%af%e7%94%b1%e9%85%8d%e7%bd%ae.html">EG3220策略路由配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">EG3220策略路由配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-19</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">EG3220</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">策略路由</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/amh%e4%bc%aa%e9%9d%99%e6%80%81%e8%b8%a9%e5%9d%91%e8%ae%b0%e5%bd%95.html">amh伪静态踩坑记录</a></span>
+      <img src="" alt="">
+      <p class="body_articles">amh伪静态踩坑记录</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-18</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">amh</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">伪静态</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/postgresql%e5%a2%9e%e5%88%a0%e6%94%b9%e6%9f%a5.html">postgresql增删改查</a></span>
+      <img src="" alt="">
+      <p class="body_articles">postgresql增删改查</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-16</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">postgresql</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/postgresql%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b.html">postgresql数据类型</a></span>
+      <img src="" alt="">
+      <p class="body_articles">postgresql数据类型</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-16</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">postgresql</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/dell%20r730xd%20esxi%e5%ae%89%e8%a3%85.html">DELL R730XD安装ESXI</a></span>
+      <img src="" alt="">
+      <p class="body_articles">DELL R730XD安装ESXI</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-15</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">R730XD</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">ESXI</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/debianPostgreSQL%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae.html">Debian PostgreSQL安装配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Debian PostgreSQL安装配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-14</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">Debian</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">PostgreSQL</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/postgresql%e5%ae%89%e8%a3%85%e9%85%8d%e7%bd%ae.html">Debian PostgreSQL安装配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Debian PostgreSQL安装配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-14</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">Debian</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">PostgreSQL</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/r730xd_raid.html">Dell R730XD 配置RAID</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Dell R730XD 配置RAID</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-13</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">Dell</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">R730XD</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">RAID</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/mac%e5%ae%8c%e5%85%a8%e7%a7%bb%e9%99%a4PostgreSQL.html">MAC完全移除PostgreSQL</a></span>
+      <img src="" alt="">
+      <p class="body_articles">MAC完全移除PostgreSQL</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-03-03</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">MAC</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">PostgreSQL</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/v2ray%e9%83%a8%e7%bd%b2.html">V2ray部署</a></span>
+      <img src="" alt="">
+      <p class="body_articles">V2ray部署</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-02-27</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">V2ray</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/docker%e9%83%a8%e7%bd%b2.html">docker部署</a></span>
+      <img src="" alt="">
+      <p class="body_articles">docker部署</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-02-27</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">docker</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/chemex%e8%b5%84%e4%ba%a7%e7%ae%a1%e7%90%86%e7%b3%bb%e7%bb%9f%e9%83%a8%e7%bd%b2.html">chemex资产管理系统部署</a></span>
+      <img src="" alt="">
+      <p class="body_articles">chemex资产管理系统部署</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-02-21</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">chemex</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/iKev2%e6%90%ad%e5%bb%ba.html">iKev2搭建</a></span>
+      <img src="" alt="">
+      <p class="body_articles">iKev2搭建</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-02-19</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">iKev2</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/stream%e5%86%85%e5%ad%98%e6%b5%8b%e8%af%95%e5%b7%a5%e5%85%b7.html">Stream内存测试工具</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Stream内存测试工具</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-02-17</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">Stream</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">内存测试</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/phpipam%e6%90%ad%e5%bb%ba.html">phpipam搭建</a></span>
+      <img src="" alt="">
+      <p class="body_articles">phpipam搭建</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-02-13</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">phpipam</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/hexo%e5%8f%8d%e5%90%91%e4%bb%a3%e7%90%86%e9%85%8d%e7%bd%ae.html">Hexo反向代理配置</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Hexo反向代理配置</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-02-11</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">Hexo</a></span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">反向代理</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+    <div class="container" id="body">
+      <span><a href="2023/hexo%e5%8d%9a%e5%ae%a2%e5%bb%ba%e7%ab%99.html">Hexo博客建站</a></span>
+      <img src="" alt="">
+      <p class="body_articles">Hexo博客建站</p>
+      <span class="timeimg"><svg t="1685180561859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2309" width="200" height="200"><path d="M864 192H704v-64h-64v64H384v-64h-64v64H160c-17.6 0-32 14.4-32 32v640c0 17.6 14.4 32 32 32h704c17.6 0 32-14.4 32-32V224c0-17.6-14.4-32-32-32z m-32 640H192V384h640v448zM384 512H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 640H256v-64h128v64z m192 0H448v-64h128v64z m192 0H640v-64h128v64zM384 768H256v-64h128v64z m192 0H448v-64h128v64z" p-id="2310"></path></svg></span>
+      <span class="body_articles_time">2023-02-10</span>
+      
+      <span class="body_articles_tag"><a onclick="setTimeout(() => {location.href='tag.html'}, 500)">Hexo</a></span>
+      
+      <span><hr/></span>
+    </div>
+    
+  </div>
+</body>
+
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../js/home.js"></script>
+<script src="../js/tag.js"></script>
+<script src="../js/search.js"></script>
