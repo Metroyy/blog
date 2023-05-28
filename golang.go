@@ -246,7 +246,7 @@ func CreateHTML(tmpls *template.Template, data struct {
 	// for i := 0; i < len(data.TagName); i++ {
 	// 	out_tag, err := os.Create("sources/articles/tagpage/" + data.TagName[i] + "/" + data.TagName[i] + "_tagpage.html")
 	// 	if err != nil {
-	// 		log.Fatalf("创建"+data.TagName[i]+"标签页输出文件失败: %v", err)
+	// 		fmt.Printf("创建%s输出文件失败: %v\n", uniquefiles[i], err)
 	// 	}
 	// 	errs := tmpls.ExecuteTemplate(out_tag, "tag.html", data.TagName[i])
 	// 	if errs != nil {
