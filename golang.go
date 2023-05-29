@@ -310,7 +310,7 @@ func CreateMdHTML(tmpls *template.Template, data struct {
 	for i := 0; i < data.MdCount; i++ {
 		out_md, err := os.Create("sources/articles/" + strconv.Itoa(yearsList[i]) + "/" + uniquefiles[i] + ".html")
 		if err != nil {
-			log.Fatalf("创建"+uniquefiles[i]+"输出文件失败1: %v", err)
+			log.Fatalf("创建"+uniquefiles[i]+"输出文件失败: %v", err)
 		}
 		errs := tmpls.ExecuteTemplate(out_md, "index.html", data.ConfigDict[i])
 		if errs != nil {
@@ -322,7 +322,7 @@ func CreateMdHTML(tmpls *template.Template, data struct {
 
 // 处理路径，提取md文件名
 func ExtMakedownName(files string) string {
-	files = strings.TrimPrefix(strings.TrimSuffix(files, ".md"), "sources\\post\\")
+	files = strings.TrimPrefix(strings.TrimSuffix(files, ".md"), "sources/post/")
 	return files
 }
 
